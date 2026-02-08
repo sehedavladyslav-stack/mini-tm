@@ -1,0 +1,33 @@
+@theme {
+  --color-mint-500: oklch(0.72 0.11 178);
+}
+
+body {
+  @apply bg-mint-500 min-h-dvh
+   grid grid-cols-[minmax(50px,150px)_1fr] grid-rows-[auto_1fr_auto] gap-1;
+}
+
+header,
+footer {
+  @apply col-span-full;
+}
+
+footer {
+  @apply text-center;
+}
+
+aside {
+  @apply row-[2/3];
+}
+
+nav {
+  @apply flex flex-col h-full;
+
+  a:hover {
+    @apply bg-emerald-600;
+  }
+
+  a:last-child {
+    @apply mt-auto;
+  }
+}

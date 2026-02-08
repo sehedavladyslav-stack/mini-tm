@@ -10,6 +10,7 @@ function AppLayout() {
         <nav>
           <NavLink to={'/'}>Dashboard</NavLink>
           <NavLink to={'/tasks'}>Task</NavLink>
+          <NavLink to={'/profile'}>Profile</NavLink>
         </nav>
       </aside>
       <main>
