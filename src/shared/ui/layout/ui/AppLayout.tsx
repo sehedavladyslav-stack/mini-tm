@@ -1,25 +1,33 @@
 import { NavLink, Outlet } from 'react-router';
+import { Logo } from '@/shared';
 
 function AppLayout() {
   return (
-    <>
-      <header>
+    <div className="app-layout">
+      <Logo />
+      <header className="app-header">
         <h1>Task Manager</h1>
       </header>
-      <aside>
-        <nav>
-          <NavLink to={'/'}>Dashboard</NavLink>
-          <NavLink to={'/tasks'}>Task</NavLink>
-          <NavLink to={'/profile'}>Profile</NavLink>
+      <aside className="app-sidebar">
+        <nav className="app-nav">
+          <NavLink className={({ isActive }) => (isActive ? 'active' : '')} to={'/'}>
+            Dashboard
+          </NavLink>
+          <NavLink className={({ isActive }) => (isActive ? 'active' : '')} to={'/tasks'}>
+            Task
+          </NavLink>
+          <NavLink className={({ isActive }) => (isActive ? 'active' : '')} to={'/profile'}>
+            Profile
+          </NavLink>
         </nav>
       </aside>
-      <main>
+      <main className="app-main">
         <Outlet />
       </main>
-      <footer>
-        <p>© 2026 Task Manager</p>
+      <footer className="app-footer">
+        <p>&copy; 2026 Task Manager</p>
       </footer>
-    </>
+    </div>
   );
 }
 

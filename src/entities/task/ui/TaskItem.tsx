@@ -1,0 +1,23 @@
+import type { Task } from '@/entities';
+
+type TaskProps = {
+  task: Task;
+};
+
+function TaskItem({ task }: TaskProps) {
+  return (
+    <article className="task-card">
+      <header className="task-card-header">
+        <h3 className="task-card-title">{task.title}</h3>
+        <span className="task-status">{task.status}</span>
+      </header>
+      <p className="task-card-description">{task.description}</p>
+      <footer className="task-card-footer">
+        <span>Due: {task.dueDate}</span>
+        <span>Updated: {task.updatedAt}</span>
+      </footer>
+    </article>
+  );
+}
+
+export { TaskItem };

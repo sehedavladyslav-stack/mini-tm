@@ -3,31 +3,172 @@
 }
 
 body {
-  @apply bg-mint-500 min-h-dvh
-   grid grid-cols-[minmax(50px,150px)_1fr] grid-rows-[auto_1fr_auto] gap-1;
+  @apply min-h-dvh bg-zinc-900 text-zinc-100;
 }
 
-header,
-footer {
-  @apply col-span-full;
-}
+.app-layout {
+  @apply min-h-dvh grid gap-3 p-3;
+  grid-template-columns: 50px 1fr;
+  grid-template-rows: 40px 1fr auto;
+  grid-template-areas:
+    'logo header'
+    'aside main'
+    'aside footer';
+  background-image:
+    radial-gradient(circle at 0% 0%, rgb(20 184 166 / 0.2), transparent 36%),
+    radial-gradient(circle at 100% 100%, rgb(6 182 212 / 0.15), transparent 35%);
 
-footer {
-  @apply text-center;
-}
-
-aside {
-  @apply row-[2/3];
-}
-
-nav {
-  @apply flex flex-col h-full;
-
-  a:hover {
-    @apply bg-emerald-600;
+  @media (min-width: 900px) {
+    @apply gap-4 p-4;
+    grid-template-columns: 240px 1fr;
+    grid-template-rows: 88px 1fr auto;
+    grid-template-areas:
+      'logo header'
+      'aside main'
+      'aside footer';
   }
+}
 
-  a:last-child {
-    @apply mt-auto;
+#logo {
+  grid-area: logo;
+}
+
+.app-header {
+  grid-area: header;
+  @apply flex items-center justify-between rounded-2xl border border-zinc-700/70 bg-zinc-800/75 px-5 text-2xl font-semibold tracking-wide shadow-lg backdrop-blur;
+}
+
+.app-sidebar {
+  grid-area: aside;
+  @apply rounded-2xl border border-zinc-700/70 bg-zinc-800/80 p-3 shadow-xl backdrop-blur;
+}
+
+.app-nav {
+  @apply flex flex-col gap-2 overflow-auto;
+
+  @media (min-width: 900px) {
+    @apply h-full flex-col gap-1;
   }
+}
+
+.app-nav a {
+  @apply rounded-xl border border-zinc-700/50 px-4 py-2 text-sm font-medium text-zinc-200 transition-all duration-200 hover:-translate-y-0.5 hover:border-teal-300/40 hover:bg-zinc-700/80 hover:text-white;
+}
+
+.app-nav a.active {
+  @apply border-teal-300/70 bg-linear-to-r from-teal-500/30 to-cyan-500/20 text-white shadow;
+}
+
+.app-main {
+  grid-area: main;
+  @apply rounded-2xl border border-zinc-700/70 bg-zinc-100 p-4 text-zinc-900 shadow-xl;
+
+  @media (min-width: 900px) {
+    @apply p-6;
+  }
+}
+
+.app-footer {
+  grid-area: footer;
+  @apply rounded-2xl border border-zinc-700/70 bg-zinc-800/75 px-4 py-3 text-center text-sm text-zinc-300 backdrop-blur;
+}
+
+.tasks-section {
+  @apply flex flex-col gap-4;
+}
+
+.tasks-header {
+  @apply flex items-center justify-between gap-3 rounded-2xl border border-zinc-200 bg-white px-4 py-3 shadow-sm;
+}
+
+.tasks-title {
+  @apply text-xl font-semibold tracking-tight text-zinc-900;
+}
+
+.tasks-add-button {
+  @apply rounded-xl border border-teal-300/70 bg-linear-to-r from-teal-500 to-cyan-500 px-3 py-2 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400/70;
+}
+
+.tasks-list {
+  @apply space-y-3;
+}
+
+.tasks-loading {
+  @apply rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-500;
+}
+
+.task-card {
+  @apply rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-teal-300/60 hover:shadow-md;
+}
+
+.task-card-header {
+  @apply mb-2 flex items-start justify-between gap-3;
+}
+
+.task-card-title {
+  @apply text-base font-semibold text-zinc-900;
+}
+
+.task-status {
+  @apply rounded-full border border-teal-300/70 bg-teal-100 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-teal-900;
+}
+
+.task-card-description {
+  @apply mb-3 text-sm leading-relaxed text-zinc-600;
+}
+
+.task-card-footer {
+  @apply flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-zinc-200 pt-2 text-xs text-zinc-500;
+}
+
+.task-modal-overlay {
+  @apply fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/55 p-4 backdrop-blur-sm;
+}
+
+.task-modal {
+  @apply w-full max-w-xl rounded-2xl border border-zinc-700/60 bg-zinc-900 p-5 text-zinc-100 shadow-2xl;
+}
+
+.task-modal-header {
+  @apply mb-4 flex items-center justify-between;
+}
+
+.task-modal-title {
+  @apply text-xl font-semibold tracking-tight;
+}
+
+.task-modal-close {
+  @apply rounded-lg border border-zinc-600/70 px-3 py-1.5 text-sm text-zinc-200 transition-colors duration-200 hover:border-zinc-500 hover:bg-zinc-800;
+}
+
+.task-modal-form {
+  @apply flex flex-col gap-3;
+}
+
+.task-modal-field {
+  @apply flex flex-col gap-1.5 text-sm;
+}
+
+.task-modal-input {
+  @apply rounded-xl border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-100 outline-none transition-colors duration-200 placeholder:text-zinc-500 focus:border-teal-400;
+}
+
+.task-modal-textarea {
+  @apply min-h-24 resize-y;
+}
+
+.task-modal-grid {
+  @apply grid grid-cols-1 gap-3 sm:grid-cols-2;
+}
+
+.task-modal-actions {
+  @apply mt-2 flex items-center justify-end gap-2;
+}
+
+.task-modal-cancel {
+  @apply rounded-xl border border-zinc-600/70 px-3 py-2 text-sm font-medium text-zinc-200 transition-colors duration-200 hover:bg-zinc-800;
+}
+
+.task-modal-submit {
+  @apply rounded-xl border border-teal-300/70 bg-linear-to-r from-teal-500 to-cyan-500 px-3 py-2 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md;
 }

@@ -1,1 +1,1 @@
-export { AppLayout } from './ui';
+export { AppLayout, Logo } from './ui';

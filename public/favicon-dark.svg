@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 180 180" fill="none" role="img" aria-label="TaskManager favicon dark">
+  <defs>
+    <linearGradient id="tm_g1" x1="28" y1="28" x2="152" y2="152" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1D4ED8"/>
+      <stop offset="1" stop-color="#1D4ED8"/>
+    </linearGradient>
+    <linearGradient id="tm_g2" x1="40" y1="140" x2="150" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2563EB" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#2563EB" stop-opacity="0.95"/>
+    </linearGradient>
+  </defs>
+
+  <path
+    d="M26 64.5C26 57.1 30.5 50.4 37.3 47.8L124.6 14.2C135.9 9.9 148 18.2 148 30.3V116.7C148 128.8 135.9 137.1 124.6 132.8L37.3 99.2C30.5 96.6 26 89.9 26 82.5V64.5Z"
+    fill="url(#tm_g1)"
+  />
+  <path
+    d="M45 64.4L142.6 30.8C145.6 29.8 148 31.9 148 34.9V111.2C148 114.2 145.6 116.3 142.6 115.3L45 81.7V64.4Z"
+    fill="url(#tm_g2)"
+    opacity="0.95"
+  />
+  <path
+    d="M57 73.2L131.8 45.8C133.8 45.1 135.6 46.9 134.9 48.9L114.2 110.7C113.6 112.5 111.2 112.9 110.1 111.4L84.5 78.7C83.8 77.8 82.7 77.3 81.6 77.3H58.9C57 77.3 56.3 74 57 73.2Z"
+    fill="#FFFFFF"
+    opacity="0.92"
+  />
+  <path
+    d="M67.5 88.5C66 87 63.5 87 62 88.5C60.5 90 60.5 92.5 62 94L73.2 105.2C74.7 106.7 77.2 106.7 78.7 105.2L103.5 80.4C105 78.9 105 76.4 103.5 74.9C102 73.4 99.5 73.4 98 74.9L75.9 97L67.5 88.5Z"
+    fill="#FFFFFF"
+    opacity="1"
+  />
+</svg>
