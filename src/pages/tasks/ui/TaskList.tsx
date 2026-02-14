@@ -2,11 +2,35 @@ import { useState } from 'react';
 import type { Task } from '@/entities';
 import { TaskItem } from '@/entities';
 import { TaskModal } from '@/shared/ui/modal';
-import { useTask } from '@/app';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { createTask, getTasks, Loader } from '@/shared';
+import { queryClient } from '@/app';
 
 function TaskList() {
-  const { tasks, addTask } = useTask(state => state);
   const [isModalOpen, setModalOpen] = useState<boolean>(false);
+  const {
+    data: tasks = [],
+    isPending,
+    isError,
+  } = useQuery({
+    queryKey: ['tasks'],
+    queryFn: getTasks,
+  });
+
+  const createTaskMutation = useMutation({
+    mutationFn: createTask,
+    onSuccess: newTask => {
+      queryClient.setQueryData<Task[]>(['tasks'], prev => [...(prev ?? []), newTask]);
+    },
+  });
+
+  if (isPending) {
+    return <Loader message="Loading" />;
+  }
+
+  if (isError) {
+    throw new Error('Not found');
+  }
 
   function handleAddTask(data: Omit<Task, 'id' | 'createdAt' | 'updatedAt'>) {
     const now = new Date().toLocaleString();
@@ -19,7 +43,7 @@ function TaskList() {
       createdAt: now,
       updatedAt: now,
     };
-    addTask(task);
+    createTaskMutation.mutate(task);
   }
 
   return (

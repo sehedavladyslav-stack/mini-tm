@@ -1,0 +1,29 @@
+.task-page {
+  display: grid;
+  gap: 16px;
+  max-width: 720px;
+}
+
+.task-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.task-page-description {
+  margin: 0;
+}
+
+.task-page-meta {
+  display: grid;
+  gap: 8px;
+}
+
+.task-page-meta p {
+  margin: 0;
+}
+
+.task-page-empty {
+  gap: 8px;
+}

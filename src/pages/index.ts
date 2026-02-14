@@ -1,2 +1,2 @@
 export { Dashboard } from './dashboard';
-export { TaskList } from './tasks';
+export { TaskList, TaskPage } from './tasks';

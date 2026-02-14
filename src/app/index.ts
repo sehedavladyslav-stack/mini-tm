@@ -1,2 +1,1 @@
-export { AppRouterProvider, router } from '@/app/providers';
-export { useTask } from './store';
+export { AppRouterProvider, router, queryClient, QueryProvider } from '@/app/providers';

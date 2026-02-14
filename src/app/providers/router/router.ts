@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router';
 import { AppLayout } from 'shared';
-import { Dashboard, TaskList } from 'pages';
+import { Dashboard, TaskList, TaskPage } from 'pages';
 
 const router = createBrowserRouter([
   {
@@ -8,6 +8,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, Component: Dashboard },
       { path: '/tasks', Component: TaskList },
+      { path: '/tasks/:taskId', Component: TaskPage },
     ],
   },
 ]);

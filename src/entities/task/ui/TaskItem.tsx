@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import type { Task } from '@/entities';
 
 type TaskProps = {
@@ -8,7 +9,9 @@ function TaskItem({ task }: TaskProps) {
   return (
     <article className="task-card">
       <header className="task-card-header">
-        <h3 className="task-card-title">{task.title}</h3>
+        <h3 className="task-card-title">
+          <Link to={`/tasks/${task.id}`}>{task.title}</Link>
+        </h3>
         <span className="task-status">{task.status}</span>
       </header>
       <p className="task-card-description">{task.description}</p>
