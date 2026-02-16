@@ -3,7 +3,7 @@ import type { Task } from '@/entities';
 import { TaskItem } from '@/entities';
 import { TaskModal } from '@/shared/ui/modal';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { createTask, getTasks, Loader } from '@/shared';
+import { createTask, formatDate, getTasks, Loader } from '@/shared';
 import { queryClient } from '@/app';
 
 function TaskList() {
@@ -33,15 +33,17 @@ function TaskList() {
   }
 
   function handleAddTask(data: Omit<Task, 'id' | 'createdAt' | 'updatedAt'>) {
-    const now = new Date().toLocaleString();
+    const now = Date.now().toString();
+    const createTaskData = formatDate(now);
+
     const task: Task = {
       id: crypto.randomUUID(),
       title: data.title,
       description: data.description,
       status: data.status,
       dueDate: data.dueDate,
-      createdAt: now,
-      updatedAt: now,
+      createdAt: createTaskData,
+      updatedAt: createTaskData,
     };
     createTaskMutation.mutate(task);
   }

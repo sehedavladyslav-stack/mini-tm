@@ -2,7 +2,6 @@ import type { Task } from '@/entities';
 import { formatDate } from '@/shared';
 
 const now = Date.now().toString();
-console.log(now);
 const date = formatDate(now);
 
 const initialData = [
