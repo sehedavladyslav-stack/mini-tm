@@ -1,13 +1,13 @@
-import { useState } from 'react';
 import type { Task } from '@/entities';
 import { TaskItem } from '@/entities';
 import { TaskModal } from '@/shared/ui/modal';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { createTask, formatDate, getTasks, Loader } from '@/shared';
-import { queryClient } from '@/app';
+import { queryClient, useModalStore } from '@/app';
 
 function TaskList() {
-  const [isModalOpen, setModalOpen] = useState<boolean>(false);
+  const {isOpen,openModal} = useModalStore();
+
   const {
     data: tasks = [],
     isPending,
@@ -54,7 +54,7 @@ function TaskList() {
         <h2 className="tasks-title" id="tasks-heading">
           List of task
         </h2>
-        <button className="tasks-add-button" type="button" onClick={() => setModalOpen(true)}>
+        <button className="tasks-add-button" type="button" onClick={() => openModal()}>
           Add Task
         </button>
       </div>
@@ -70,8 +70,7 @@ function TaskList() {
         <p className="tasks-loading">Is loading</p>
       )}
       <TaskModal
-        isOpen={isModalOpen}
-        onClose={() => setModalOpen(false)}
+        isOpen={isOpen}
         onSubmit={handleAddTask}
       />
     </section>

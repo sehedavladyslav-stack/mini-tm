@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useModalStore } from '@/app';
 
 type TaskFormData = {
   title: string;
@@ -9,7 +9,6 @@ type TaskFormData = {
 
 type TaskModalProps = {
   isOpen: boolean;
-  onClose: () => void;
   onSubmit: (data: TaskFormData) => void;
 };
 
@@ -20,8 +19,9 @@ const INITIAL_FORM: TaskFormData = {
   dueDate: '',
 };
 
-function TaskModal({ isOpen, onClose, onSubmit }: TaskModalProps) {
-  const [formData, setFormData] = useState<TaskFormData>(INITIAL_FORM);
+function TaskModal({ isOpen, onSubmit }: TaskModalProps) {
+  
+  const { formData,setFormData, submitModal} = useModalStore()
 
   if (!isOpen) {
     return null;
@@ -30,23 +30,21 @@ function TaskModal({ isOpen, onClose, onSubmit }: TaskModalProps) {
   function handleSubmit(event: { preventDefault: () => void }) {
     event.preventDefault();
 
-    if (!formData.title.trim()) {
+    if (!formData?.title.trim()) {
       return;
     }
 
     onSubmit({
-      title: formData.title.trim(),
-      description: formData.description.trim(),
-      status: formData.status,
-      dueDate: formData.dueDate,
+      title: formData?.title.trim(),
+      description: formData?.description.trim(),
+      status: formData?.status,
+      dueDate: formData?.dueDate,
     });
-    setFormData(INITIAL_FORM);
-    onClose();
+submitModal(INITIAL_FORM)
   }
 
   function handleClose() {
-    setFormData(INITIAL_FORM);
-    onClose();
+    submitModal(INITIAL_FORM)
   }
 
   return (
@@ -72,7 +70,7 @@ function TaskModal({ isOpen, onClose, onSubmit }: TaskModalProps) {
             <span>Title</span>
             <input
               className="task-modal-input"
-              value={formData.title}
+              value={formData?.title}
               onChange={event => setFormData(prev => ({ ...prev, title: event.target.value }))}
               placeholder="Task title"
               required
@@ -83,7 +81,7 @@ function TaskModal({ isOpen, onClose, onSubmit }: TaskModalProps) {
             <span>Description</span>
             <textarea
               className="task-modal-input task-modal-textarea"
-              value={formData.description}
+              value={formData?.description}
               onChange={event =>
                 setFormData(prev => ({ ...prev, description: event.target.value }))
               }
@@ -96,7 +94,7 @@ function TaskModal({ isOpen, onClose, onSubmit }: TaskModalProps) {
               <span>Status</span>
               <select
                 className="task-modal-input"
-                value={formData.status}
+                value={formData?.status}
                 onChange={event => setFormData(prev => ({ ...prev, status: event.target.value }))}
               >
                 <option value="to do">To do</option>
@@ -110,7 +108,7 @@ function TaskModal({ isOpen, onClose, onSubmit }: TaskModalProps) {
               <input
                 className="task-modal-input"
                 type="date"
-                value={formData.dueDate}
+                value={formData?.dueDate}
                 onChange={event => setFormData(prev => ({ ...prev, dueDate: event.target.value }))}
               />
             </label>

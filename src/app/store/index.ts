@@ -1,1 +1,1 @@
-
+export {useModalStore} from './ui.store'
