@@ -1,27 +1,12 @@
-import { useModalStore } from '@/app';
-
-type TaskFormData = {
-  title: string;
-  description: string;
-  status: string;
-  dueDate: string;
-};
+import { useModalStore, useTaskFormData, type TaskFormData } from '@/app';
 
 type TaskModalProps = {
-  isOpen: boolean;
   onSubmit: (data: TaskFormData) => void;
 };
 
-const INITIAL_FORM: TaskFormData = {
-  title: '',
-  description: '',
-  status: 'to do',
-  dueDate: '',
-};
-
-function TaskModal({ isOpen, onSubmit }: TaskModalProps) {
-  
-  const { formData,setFormData, submitModal} = useModalStore()
+function TaskModal({ onSubmit }: TaskModalProps) {
+  const { isOpen, closeModal } = useModalStore();
+  const { formData, updateField, reset } = useTaskFormData();
 
   if (!isOpen) {
     return null;
@@ -34,17 +19,14 @@ function TaskModal({ isOpen, onSubmit }: TaskModalProps) {
       return;
     }
 
-    onSubmit({
-      title: formData?.title.trim(),
-      description: formData?.description.trim(),
-      status: formData?.status,
-      dueDate: formData?.dueDate,
-    });
-submitModal(INITIAL_FORM)
+    onSubmit(formData);
+    closeModal();
+    reset();
   }
 
   function handleClose() {
-    submitModal(INITIAL_FORM)
+    closeModal();
+    reset();
   }
 
   return (
@@ -71,7 +53,7 @@ submitModal(INITIAL_FORM)
             <input
               className="task-modal-input"
               value={formData?.title}
-              onChange={event => setFormData(prev => ({ ...prev, title: event.target.value }))}
+              onChange={event => updateField('title', event.target.value)}
               placeholder="Task title"
               required
             />
@@ -82,9 +64,7 @@ submitModal(INITIAL_FORM)
             <textarea
               className="task-modal-input task-modal-textarea"
               value={formData?.description}
-              onChange={event =>
-                setFormData(prev => ({ ...prev, description: event.target.value }))
-              }
+              onChange={event => updateField('description', event.target.value)}
               placeholder="Task description"
             />
           </label>
@@ -95,7 +75,7 @@ submitModal(INITIAL_FORM)
               <select
                 className="task-modal-input"
                 value={formData?.status}
-                onChange={event => setFormData(prev => ({ ...prev, status: event.target.value }))}
+                onChange={event => updateField('status', event.target.value)}
               >
                 <option value="to do">To do</option>
                 <option value="in progress">In progress</option>
@@ -109,7 +89,7 @@ submitModal(INITIAL_FORM)
                 className="task-modal-input"
                 type="date"
                 value={formData?.dueDate}
-                onChange={event => setFormData(prev => ({ ...prev, dueDate: event.target.value }))}
+                onChange={event => updateField('dueDate', event.target.value)}
               />
             </label>
           </div>

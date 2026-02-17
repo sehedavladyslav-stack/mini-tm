@@ -6,7 +6,7 @@ import { createTask, formatDate, getTasks, Loader } from '@/shared';
 import { queryClient, useModalStore } from '@/app';
 
 function TaskList() {
-  const {isOpen,openModal} = useModalStore();
+  const { openModal } = useModalStore();
 
   const {
     data: tasks = [],
@@ -69,10 +69,7 @@ function TaskList() {
       ) : (
         <p className="tasks-loading">Is loading</p>
       )}
-      <TaskModal
-        isOpen={isOpen}
-        onSubmit={handleAddTask}
-      />
+      <TaskModal onSubmit={handleAddTask} />
     </section>
   );
 }

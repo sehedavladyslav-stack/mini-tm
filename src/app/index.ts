@@ -1,2 +1,3 @@
 export { AppRouterProvider, router, queryClient, QueryProvider } from '@/app/providers';
-export {useModalStore} from './store'
+export { useModalStore, useTaskFormData } from './store';
+export type { TaskFormData } from './store';
