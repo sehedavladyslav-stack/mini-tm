@@ -2,11 +2,12 @@ import type { Task } from '@/entities';
 import { TaskItem } from '@/entities';
 import { TaskModal } from '@/shared/ui/modal';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { createTask, formatDate, getTasks, Loader } from '@/shared';
+import { createTask, formatDate, getTasks, Loader, useToastStore } from '@/shared';
 import { queryClient, useModalStore } from '@/app';
 
 function TaskList() {
   const { openModal } = useModalStore();
+  const toast = useToastStore(s => s.show);
 
   const {
     data: tasks = [],
@@ -21,6 +22,10 @@ function TaskList() {
     mutationFn: createTask,
     onSuccess: newTask => {
       queryClient.setQueryData<Task[]>(['tasks'], prev => [...(prev ?? []), newTask]);
+      toast('New task created', 'success');
+    },
+    onError: err => {
+      toast(err.message, 'error');
     },
   });
 
@@ -29,7 +34,7 @@ function TaskList() {
   }
 
   if (isError) {
-    throw new Error('Not found');
+    return toast('Not found', 'info');
   }
 
   function handleAddTask(data: Omit<Task, 'id' | 'createdAt' | 'updatedAt'>) {
