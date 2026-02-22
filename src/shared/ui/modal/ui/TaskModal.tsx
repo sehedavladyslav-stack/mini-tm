@@ -1,8 +1,12 @@
 import { useModalStore, useTaskFormData, type TaskFormData } from '@/app';
+import { createISODateString } from '@/shared/lib';
+import type { ISODateString } from '@/shared/types';
 
 type TaskModalProps = {
   onSubmit: (data: TaskFormData) => void;
 };
+
+const STATUS_VALUE: TaskFormData['status'][] = ['todo', 'active', 'completed', 'canceled'];
 
 function TaskModal({ onSubmit }: TaskModalProps) {
   const { isOpen, closeModal } = useModalStore();
@@ -75,11 +79,17 @@ function TaskModal({ onSubmit }: TaskModalProps) {
               <select
                 className="task-modal-input"
                 value={formData?.status}
-                onChange={event => updateField('status', event.target.value)}
+                onChange={event => {
+                  const value = event.currentTarget.value;
+                  if (STATUS_VALUE.includes(value as TaskFormData['status'])) {
+                    updateField('status', value as TaskFormData['status']);
+                  }
+                }}
               >
-                <option value="to do">To do</option>
-                <option value="in progress">In progress</option>
-                <option value="done">Done</option>
+                <option value={'todo'}>To do</option>
+                <option value={'active'}>In progress</option>
+                <option value={'completed'}>Done</option>
+                <option value={'canceled'}>Cancel</option>
               </select>
             </label>
 
@@ -89,7 +99,12 @@ function TaskModal({ onSubmit }: TaskModalProps) {
                 className="task-modal-input"
                 type="date"
                 value={formData?.dueDate}
-                onChange={event => updateField('dueDate', event.target.value)}
+                onChange={event => {
+                  const value = createISODateString(event.target.value);
+                  if (value as ISODateString) {
+                    updateField('dueDate', value as ISODateString);
+                  }
+                }}
               />
             </label>
           </div>

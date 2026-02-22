@@ -1,12 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link, useParams } from 'react-router';
-import { getTask, Loader } from '@/shared';
+import { getTask, Loader, type TaskId } from '@/shared';
 
 function TaskPage() {
   const { taskId } = useParams();
+  const id = taskId as TaskId;
   const { data: task, isLoading } = useQuery({
     queryKey: ['task', taskId],
-    queryFn: () => getTask(taskId),
+    queryFn: () => getTask(id),
   });
 
   if (isLoading) {
@@ -32,7 +33,6 @@ function TaskPage() {
       <p className="task-page-description">{task.description}</p>
       <div className="task-page-meta">
         <p>Due: {task.dueDate}</p>
-        <p>Created: {task.createdAt}</p>
         <p>Updated: {task.updatedAt}</p>
       </div>
       <Link to="/tasks">Back to tasks</Link>

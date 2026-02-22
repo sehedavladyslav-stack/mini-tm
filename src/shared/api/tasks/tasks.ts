@@ -1,15 +1,14 @@
-import type { Task } from '@/entities';
-import { formatDate } from '@/shared';
+import type { Task, TaskUI } from '@/entities';
+import { createISODateString, formatDate, type TaskId } from '@/shared';
 
-const now = Date.now().toString();
-const date = formatDate(now);
+const date = createISODateString(Date.now());
 
 const initialData = [
   {
     id: crypto.randomUUID(),
     title: 'First title',
     description: 'description task',
-    status: 'to do',
+    status: 'todo',
     dueDate: date,
     createdAt: date,
     updatedAt: date,
@@ -18,24 +17,36 @@ const initialData = [
     id: crypto.randomUUID(),
     title: 'Second title',
     description: 'description task',
-    status: 'to do',
+    status: 'todo',
     dueDate: date,
     createdAt: date,
     updatedAt: date,
   },
-];
+] as Task[];
 
-export async function getTasks(): Promise<Task[]> {
-  return initialData;
+function fromTaskToUI(data: Omit<Task, 'createdAt'>): TaskUI {
+  const dueDate = formatDate(data.dueDate);
+  const updateDate = formatDate(data.updatedAt);
+
+  const uiTask = { ...data, dueDate: dueDate, updatedAt: updateDate };
+
+  return uiTask;
 }
 
-export async function getTask(taskId: string | undefined): Promise<Task> {
+export async function getTasks(): Promise<TaskUI[]> {
+  const tasks = initialData.map(t => fromTaskToUI(t));
+
+  return tasks;
+}
+
+export async function getTask(taskId: TaskId): Promise<TaskUI> {
   const task = initialData.find(t => t.id === taskId) as Task;
 
   if (!task) {
     throw new Error('Not found task');
   }
-  return task;
+
+  return fromTaskToUI(task);
 }
 
 export async function createTask(task: Task): Promise<Task> {

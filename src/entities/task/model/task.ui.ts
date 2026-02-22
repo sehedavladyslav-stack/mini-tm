@@ -1,17 +1,16 @@
-import type { ISODateString } from 'shared';
+import type { FormattedDateString } from 'shared';
 
 type TaskId = ReturnType<typeof crypto.randomUUID>;
 
 type Status = 'completed' | 'todo' | 'canceled' | 'active';
 
-type Task = {
+type TaskUI = {
   id: TaskId;
   title: string;
   description: string;
   status: Status;
-  dueDate: ISODateString;
-  createdAt: ISODateString;
-  updatedAt: ISODateString;
+  dueDate: FormattedDateString;
+  updatedAt: FormattedDateString;
 };
 
-export type { Task };
+export type { TaskUI };

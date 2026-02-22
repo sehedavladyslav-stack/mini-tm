@@ -1,17 +1,22 @@
+import { createISODateString, type ISODateString } from 'shared';
 import { create } from 'zustand';
+
+type Status = 'completed' | 'todo' | 'canceled' | 'active';
 
 export type TaskFormData = {
   title: string;
   description: string;
-  status: string;
-  dueDate: string;
+  status: Status;
+  dueDate: ISODateString;
 };
+
+const date = createISODateString(Date.now());
 
 export const INITIAL_FORM: TaskFormData = {
   title: '',
   description: '',
-  status: 'to do',
-  dueDate: '',
+  status: 'todo',
+  dueDate: date,
 };
 
 type TaskFormState = {

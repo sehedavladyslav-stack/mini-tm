@@ -2,7 +2,7 @@ import type { Task } from '@/entities';
 import { TaskItem } from '@/entities';
 import { TaskModal } from '@/shared/ui/modal';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { createTask, formatDate, getTasks, Loader, useToastStore } from '@/shared';
+import { createISODateString, createTask, getTasks, Loader, useToastStore } from '@/shared';
 import { queryClient, useModalStore } from '@/app';
 
 function TaskList() {
@@ -34,12 +34,11 @@ function TaskList() {
   }
 
   if (isError) {
-    return toast('Not found', 'info');
+    throw new Error('Bad request!');
   }
 
   function handleAddTask(data: Omit<Task, 'id' | 'createdAt' | 'updatedAt'>) {
-    const now = Date.now().toString();
-    const createTaskData = formatDate(now);
+    const createTaskData = createISODateString(Date.now());
 
     const task: Task = {
       id: crypto.randomUUID(),

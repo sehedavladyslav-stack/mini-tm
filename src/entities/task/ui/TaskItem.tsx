@@ -1,8 +1,8 @@
 import { Link } from 'react-router';
-import type { Task } from '@/entities';
+import type { TaskUI } from '@/entities';
 
 type TaskProps = {
-  task: Task;
+  task: TaskUI;
 };
 
 function TaskItem({ task }: TaskProps) {
