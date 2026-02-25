@@ -1,28 +1,6 @@
 import type { Task, TaskUI } from '@/entities';
-import { createISODateString, formatDate, type TaskId } from '@/shared';
-
-const date = createISODateString(Date.now());
-
-const initialData = [
-  {
-    id: crypto.randomUUID(),
-    title: 'First title',
-    description: 'description task',
-    status: 'todo',
-    dueDate: date,
-    createdAt: date,
-    updatedAt: date,
-  },
-  {
-    id: crypto.randomUUID(),
-    title: 'Second title',
-    description: 'description task',
-    status: 'todo',
-    dueDate: date,
-    createdAt: date,
-    updatedAt: date,
-  },
-] as Task[];
+import { formatDate, type TaskId } from '@/shared';
+import { getApiTask, getApiTasks, setApiTask } from '../client/client';
 
 function fromTaskToUI(data: Omit<Task, 'createdAt'>): TaskUI {
   const dueDate = formatDate(data.dueDate);
@@ -34,13 +12,13 @@ function fromTaskToUI(data: Omit<Task, 'createdAt'>): TaskUI {
 }
 
 export async function getTasks(): Promise<TaskUI[]> {
-  const tasks = initialData.map(t => fromTaskToUI(t));
-
+  const data = await getApiTasks();
+  const tasks = data?.map(t => fromTaskToUI(t));
   return tasks;
 }
 
 export async function getTask(taskId: TaskId): Promise<TaskUI> {
-  const task = initialData.find(t => t.id === taskId) as Task;
+  const task = await getApiTask(taskId);
 
   if (!task) {
     throw new Error('Not found task');
@@ -49,6 +27,6 @@ export async function getTask(taskId: TaskId): Promise<TaskUI> {
   return fromTaskToUI(task);
 }
 
-export async function createTask(task: Task): Promise<Task> {
-  return task;
+export async function createTask(task: Task): Promise<void> {
+  setApiTask(task);
 }

@@ -20,8 +20,8 @@ function TaskList() {
 
   const createTaskMutation = useMutation({
     mutationFn: createTask,
-    onSuccess: newTask => {
-      queryClient.setQueryData<Task[]>(['tasks'], prev => [...(prev ?? []), newTask]);
+    onSuccess: async () => {
+      queryClient.invalidateQueries({ queryKey: ['tasks'] });
       toast('New task created', 'success');
     },
     onError: err => {

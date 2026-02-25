@@ -1,7 +1,7 @@
 import type { FormattedDateString, ISODateString } from '@/shared';
 
 export function createISODateString(value: string | number | Date): ISODateString {
-  const date = value instanceof Date ? value : new Date(Number(value));
+  const date = value instanceof Date ? value : new Date(value);
 
   if (Number.isNaN(date.getTime())) {
     throw new Error('Invalid ISO date string');

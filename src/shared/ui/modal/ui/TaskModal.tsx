@@ -97,10 +97,11 @@ function TaskModal({ onSubmit }: TaskModalProps) {
               <span>Due date</span>
               <input
                 className="task-modal-input"
-                type="date"
-                value={formData?.dueDate}
+                type="datetime-local"
+                value={formData?.dueDate.slice(0, 16)}
                 onChange={event => {
                   const value = createISODateString(event.target.value);
+
                   if (value as ISODateString) {
                     updateField('dueDate', value as ISODateString);
                   }
