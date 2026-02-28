@@ -3,9 +3,13 @@ import type { TaskUI } from '@/entities';
 
 type TaskProps = {
   task: TaskUI;
+  onStatusChange: (taskId: TaskUI['id'], status: TaskUI['status']) => void;
+  isStatusUpdating?: boolean;
 };
 
-function TaskItem({ task }: TaskProps) {
+const STATUS_OPTIONS: TaskUI['status'][] = ['todo', 'active', 'completed', 'canceled'];
+
+function TaskItem({ task, onStatusChange, isStatusUpdating = false }: TaskProps) {
   return (
     <article className="task-card">
       <header className="task-card-header">
@@ -17,6 +21,22 @@ function TaskItem({ task }: TaskProps) {
         <span className={`task-status task-status--${task.status}`}>{task.status}</span>
       </header>
       <p className="task-card-description">{task.description || 'No description added yet.'}</p>
+      <div className="task-card-controls">
+        <label htmlFor={`task-card-status-${task.id}`}>Status</label>
+        <select
+          id={`task-card-status-${task.id}`}
+          className="task-card-status-select"
+          value={task.status}
+          disabled={isStatusUpdating}
+          onChange={event => onStatusChange(task.id, event.target.value as TaskUI['status'])}
+        >
+          {STATUS_OPTIONS.map(status => (
+            <option key={status} value={status}>
+              {status}
+            </option>
+          ))}
+        </select>
+      </div>
       <footer className="task-card-footer">
         <span>
           <strong>Due:</strong> {task.dueDate}

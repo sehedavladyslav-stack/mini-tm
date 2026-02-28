@@ -1,6 +1,12 @@
 import type { Task, TaskUI } from '@/entities';
 import { formatDate, type TaskId } from '@/shared';
-import { deleteApiTask, getApiTask, getApiTasks, setApiTask } from '../client/client';
+import {
+  deleteApiTask,
+  getApiTask,
+  getApiTasks,
+  setApiTask,
+  updateApiTaskStatus,
+} from '../client/client';
 
 function fromTaskToUI(data: Omit<Task, 'createdAt'>): TaskUI {
   const dueDate = formatDate(data.dueDate);
@@ -33,4 +39,12 @@ export async function createTask(task: Task): Promise<void> {
 
 export async function deleteTask(taskId: TaskId): Promise<void> {
   await deleteApiTask(taskId);
+}
+
+export async function updateTaskStatus(taskId: TaskId, status: Task['status']): Promise<void> {
+  const updatedTask = await updateApiTaskStatus(taskId, status);
+
+  if (!updatedTask) {
+    throw new Error('Task not found');
+  }
 }

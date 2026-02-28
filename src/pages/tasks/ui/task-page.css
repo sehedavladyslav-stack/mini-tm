@@ -73,6 +73,36 @@
   font-size: 1rem;
 }
 
+.task-page-status-control {
+  display: grid;
+  gap: 6px;
+}
+
+.task-page-status-control span {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgb(113 113 122);
+  font-weight: 700;
+}
+
+.task-page-status-select {
+  min-height: 40px;
+  border: 1px solid rgb(212 212 216);
+  border-radius: 12px;
+  background: white;
+  color: rgb(39 39 42);
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 0 12px;
+  outline: none;
+  transition: border-color 180ms ease;
+}
+
+.task-page-status-select:focus {
+  border-color: rgb(20 184 166 / 0.75);
+}
+
 .task-page-meta {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

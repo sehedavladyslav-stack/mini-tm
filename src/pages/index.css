@@ -1,2 +1,3 @@
+@import './dashboard/ui/dashboard.css';
 @import './tasks/ui/task-list.css';
 @import './tasks/ui/task-page.css';

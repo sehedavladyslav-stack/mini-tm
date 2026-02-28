@@ -2,7 +2,16 @@ import type { Task } from '@/entities';
 import { TaskItem } from '@/entities';
 import { TaskModal } from '@/shared/ui/modal';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Button, createISODateString, createTask, getTasks, Loader, useToastStore } from '@/shared';
+import {
+  Button,
+  createISODateString,
+  createTask,
+  getTasks,
+  Loader,
+  updateTaskStatus,
+  useToastStore,
+  type TaskId,
+} from '@/shared';
 import { queryClient, useModalStore } from '@/app';
 
 function TaskList() {
@@ -23,6 +32,21 @@ function TaskList() {
     onSuccess: async () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
       toast('New task created', 'success');
+    },
+    onError: err => {
+      toast(err.message, 'error');
+    },
+  });
+
+  const updateTaskStatusMutation = useMutation({
+    mutationFn: ({ taskId, status }: { taskId: TaskId; status: Task['status'] }) =>
+      updateTaskStatus(taskId, status),
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['tasks'] }),
+        queryClient.invalidateQueries({ queryKey: ['task'] }),
+      ]);
+      toast('Task status updated', 'success');
     },
     onError: err => {
       toast(err.message, 'error');
@@ -50,6 +74,10 @@ function TaskList() {
       updatedAt: createTaskData,
     };
     createTaskMutation.mutate(task);
+  }
+
+  function handleStatusChange(taskId: Task['id'], status: Task['status']) {
+    updateTaskStatusMutation.mutate({ taskId: taskId as TaskId, status });
   }
 
   const activeTasks = tasks.filter(task => task.status === 'active').length;
@@ -94,7 +122,11 @@ function TaskList() {
         <ul className="tasks-list">
           {tasks.map(t => (
             <li key={t.id}>
-              <TaskItem task={t} />
+              <TaskItem
+                task={t}
+                isStatusUpdating={updateTaskStatusMutation.isPending}
+                onStatusChange={handleStatusChange}
+              />
             </li>
           ))}
         </ul>
