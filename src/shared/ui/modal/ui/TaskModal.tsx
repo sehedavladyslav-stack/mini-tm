@@ -1,6 +1,7 @@
 import { useModalStore, useTaskFormData, type TaskFormData } from '@/app';
 import { createISODateString } from '@/shared/lib';
 import type { ISODateString } from '@/shared/types';
+import { Button } from '@/shared';
 
 type TaskModalProps = {
   onSubmit: (data: TaskFormData) => void;
@@ -46,9 +47,9 @@ function TaskModal({ onSubmit }: TaskModalProps) {
           <h3 className="task-modal-title" id="task-modal-title">
             Add Task
           </h3>
-          <button className="task-modal-close" type="button" onClick={handleClose}>
+          <Button className="task-modal-close" type="button" onClick={handleClose}>
             Close
-          </button>
+          </Button>
         </div>
 
         <form className="task-modal-form" onSubmit={handleSubmit}>
@@ -111,12 +112,16 @@ function TaskModal({ onSubmit }: TaskModalProps) {
           </div>
 
           <div className="task-modal-actions">
-            <button className="task-modal-cancel" type="button" onClick={handleClose}>
+            <Button type="button" className="task-modal-cancel" onClick={handleClose}>
               Cancel
-            </button>
-            <button className="task-modal-submit" type="submit">
+            </Button>
+            {/* <button className="task-modal-cancel" type="button" onClick={handleClose}>
+              Cancel
+            </button> */}
+            <Button className="task-modal=submit" type="submit"></Button>
+            {/* <button className="task-modal-submit" type="submit">
               Create task
-            </button>
+            </button> */}
           </div>
         </form>
       </div>

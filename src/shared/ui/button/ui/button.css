@@ -1,0 +1,114 @@
+@layer components {
+  .ui-btn {
+    /* typography: default for buttons */
+    /* @apply text-body; */
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    font-weight: 600;
+    letter-spacing: -0.01em;
+
+    border-radius: var(--radius-md);
+    transition:
+      background 150ms ease,
+      transform 150ms ease,
+      box-shadow 150ms ease;
+
+    user-select: none;
+    outline: none;
+    min-width: 0;
+  }
+
+  .ui-btn:focus-visible {
+    box-shadow:
+      0 0 0 2px rgb(var(--accent) / 0.35),
+      0 0 0 6px rgb(255 255 255 / 0.7);
+  }
+
+  .ui-btn:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .ui-btn--sm {
+    height: 36px;
+    padding: 0 12px;
+  }
+
+  .ui-btn--md {
+    height: 40px;
+    padding: 0 16px;
+  }
+
+  .ui-btn--lg {
+    height: 44px;
+    padding: 0 20px;
+
+    /* large buttons can use bigger text */
+    /* @apply text-body-lg; */
+  }
+
+  /* variants */
+  .ui-btn--primary {
+    background: rgb(var(--fg));
+    color: rgb(255 255 255);
+  }
+  .ui-btn--primary:hover {
+    background: rgb(24 24 27);
+  }
+  .ui-btn--primary:active {
+    transform: translateY(0.5px);
+  }
+
+  .ui-btn--secondary {
+    background: rgb(244 244 245);
+    color: rgb(var(--fg));
+    border: 1px solid rgb(var(--border));
+  }
+  .ui-btn--secondary:hover {
+    background: rgb(228 228 231);
+  }
+  .ui-btn--secondary:active {
+    transform: translateY(0.5px);
+  }
+
+  .ui-btn--ghost {
+    background: transparent;
+    color: rgb(var(--fg));
+  }
+  .ui-btn--ghost:hover {
+    background: rgb(244 244 245);
+  }
+  .ui-btn--ghost:active {
+    transform: translateY(0.5px);
+  }
+
+  .ui-btn--danger {
+    background: rgb(220 38 38);
+    color: white;
+  }
+  .ui-btn--danger:hover {
+    background: rgb(239 68 68);
+  }
+  .ui-btn--danger:active {
+    transform: translateY(0.5px);
+  }
+
+  /* inner elements */
+  .ui-btn__text {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ui-btn__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+}
