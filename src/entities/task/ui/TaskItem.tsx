@@ -10,14 +10,20 @@ function TaskItem({ task }: TaskProps) {
     <article className="task-card">
       <header className="task-card-header">
         <h3 className="task-card-title">
-          <Link to={`/tasks/${task.id}`}>{task.title}</Link>
+          <Link className="task-card-link" to={`/tasks/${task.id}`}>
+            {task.title}
+          </Link>
         </h3>
-        <span className="task-status">{task.status}</span>
+        <span className={`task-status task-status--${task.status}`}>{task.status}</span>
       </header>
-      <p className="task-card-description">{task.description}</p>
+      <p className="task-card-description">{task.description || 'No description added yet.'}</p>
       <footer className="task-card-footer">
-        <span>Due: {task.dueDate}</span>
-        <span>Updated: {task.updatedAt}</span>
+        <span>
+          <strong>Due:</strong> {task.dueDate}
+        </span>
+        <span>
+          <strong>Updated:</strong> {task.updatedAt}
+        </span>
       </footer>
     </article>
   );

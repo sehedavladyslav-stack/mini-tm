@@ -34,27 +34,52 @@ function TaskPage() {
     return (
       <section className="task-page task-page-empty">
         <h2>Task not found</h2>
-        <p>The requested task does not exist.</p>
-        <Link to="/tasks">Back to tasks</Link>
+        <p>The requested task does not exist or was already removed.</p>
+        <Link className="task-page-back" to="/tasks">
+          Back to tasks
+        </Link>
       </section>
     );
   }
 
   return (
     <section className="task-page" aria-labelledby="task-page-title">
-      <div className="task-page-header">
-        <h2 id="task-page-title">{task.title}</h2>
-        <span className="task-status">{task.status}</span>
+      <div className="task-page-top">
+        <Link className="task-page-back" to="/tasks">
+          Back to tasks
+        </Link>
+        <span className={`task-status task-status--${task.status}`}>{task.status}</span>
       </div>
-      <p className="task-page-description">{task.description}</p>
-      <div className="task-page-meta">
-        <p>Due: {task.dueDate}</p>
-        <p>Updated: {task.updatedAt}</p>
-      </div>
-      <Button variant="danger" size="sm" onClick={() => mutate(id)}>
-        Delete
-      </Button>
-      <Link to="/tasks">Back to tasks</Link>
+
+      <article className="task-page-card">
+        <div className="task-page-header">
+          <h2 id="task-page-title">{task.title}</h2>
+          <Button variant="danger" size="sm" onClick={() => mutate(id)}>
+            Delete task
+          </Button>
+        </div>
+
+        <p className="task-page-description">{task.description || 'No description added yet.'}</p>
+
+        <dl className="task-page-meta">
+          <div>
+            <dt>Due date</dt>
+            <dd>{task.dueDate}</dd>
+          </div>
+          <div>
+            <dt>Last update</dt>
+            <dd>{task.updatedAt}</dd>
+          </div>
+          <div>
+            <dt>Status</dt>
+            <dd>{task.status}</dd>
+          </div>
+        </dl>
+      </article>
+
+      <Link className="task-page-back task-page-back-plain" to="/tasks">
+        Return to board
+      </Link>
     </section>
   );
 }
