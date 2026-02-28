@@ -1,6 +1,6 @@
 import type { Task, TaskUI } from '@/entities';
 import { formatDate, type TaskId } from '@/shared';
-import { getApiTask, getApiTasks, setApiTask } from '../client/client';
+import { deleteApiTask, getApiTask, getApiTasks, setApiTask } from '../client/client';
 
 function fromTaskToUI(data: Omit<Task, 'createdAt'>): TaskUI {
   const dueDate = formatDate(data.dueDate);
@@ -28,5 +28,9 @@ export async function getTask(taskId: TaskId): Promise<TaskUI> {
 }
 
 export async function createTask(task: Task): Promise<void> {
-  setApiTask(task);
+  await setApiTask(task);
+}
+
+export async function deleteTask(taskId: TaskId): Promise<void> {
+  await deleteApiTask(taskId);
 }

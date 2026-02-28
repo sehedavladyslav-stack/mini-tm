@@ -2,7 +2,7 @@ import type { Task } from '@/entities';
 import { TaskItem } from '@/entities';
 import { TaskModal } from '@/shared/ui/modal';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { createISODateString, createTask, getTasks, Loader, useToastStore } from '@/shared';
+import { Button, createISODateString, createTask, getTasks, Loader, useToastStore } from '@/shared';
 import { queryClient, useModalStore } from '@/app';
 
 function TaskList() {
@@ -58,9 +58,9 @@ function TaskList() {
         <h2 className="tasks-title" id="tasks-heading">
           List of task
         </h2>
-        <button className="tasks-add-button" type="button" onClick={() => openModal()}>
-          Add Task
-        </button>
+        <Button className="tasks-add-button" type="button" onClick={() => openModal()}>
+          Add task
+        </Button>
       </div>
       {tasks.length > 0 ? (
         <ul className="tasks-list">

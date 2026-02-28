@@ -1,13 +1,29 @@
-import { useQuery } from '@tanstack/react-query';
-import { Link, useParams } from 'react-router';
-import { getTask, Loader, type TaskId } from '@/shared';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { Link, useNavigate, useParams } from 'react-router';
+import { Button, deleteTask, getTask, Loader, useToastStore, type TaskId } from '@/shared';
+import { queryClient } from '@/app';
 
 function TaskPage() {
   const { taskId } = useParams();
+  const navigate = useNavigate();
   const id = taskId as TaskId;
   const { data: task, isLoading } = useQuery({
     queryKey: ['task', taskId],
     queryFn: () => getTask(id),
+  });
+
+  const toast = useToastStore(s => s.show);
+
+  const { mutate } = useMutation({
+    mutationFn: deleteTask,
+    onSuccess: async () => {
+      queryClient.invalidateQueries({ queryKey: ['tasks'] });
+      navigate(-1);
+      toast('Task deleting from your task', 'success');
+    },
+    onError: err => {
+      toast(err.message, 'error');
+    },
   });
 
   if (isLoading) {
@@ -35,6 +51,9 @@ function TaskPage() {
         <p>Due: {task.dueDate}</p>
         <p>Updated: {task.updatedAt}</p>
       </div>
+      <Button variant="danger" size="sm" onClick={() => mutate(id)}>
+        Delete
+      </Button>
       <Link to="/tasks">Back to tasks</Link>
     </section>
   );

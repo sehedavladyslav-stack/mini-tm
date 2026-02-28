@@ -93,7 +93,6 @@ function TaskModal({ onSubmit }: TaskModalProps) {
                 <option value={'canceled'}>Cancel</option>
               </select>
             </label>
-
             <label className="task-modal-field">
               <span>Due date</span>
               <input
@@ -110,18 +109,13 @@ function TaskModal({ onSubmit }: TaskModalProps) {
               />
             </label>
           </div>
-
           <div className="task-modal-actions">
             <Button type="button" className="task-modal-cancel" onClick={handleClose}>
               Cancel
             </Button>
-            {/* <button className="task-modal-cancel" type="button" onClick={handleClose}>
-              Cancel
-            </button> */}
-            <Button className="task-modal=submit" type="submit"></Button>
-            {/* <button className="task-modal-submit" type="submit">
+            <Button className="task-modal-submit" type="submit">
               Create task
-            </button> */}
+            </Button>
           </div>
         </form>
       </div>

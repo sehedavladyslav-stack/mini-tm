@@ -51,7 +51,11 @@ export async function getApiTask(id: TaskId) {
 }
 
 export async function setApiTask(task: Task) {
-  console.log('Create', task);
   tasks.push(task);
+  localStorage.tasks = JSON.stringify(tasks);
+}
+
+export async function deleteApiTask(id: TaskId) {
+  tasks = tasks.filter(t => t.id !== id);
   localStorage.tasks = JSON.stringify(tasks);
 }
