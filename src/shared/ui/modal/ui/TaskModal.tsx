@@ -20,7 +20,7 @@ function TaskModal({ onSubmit }: TaskModalProps) {
   function handleSubmit(event: { preventDefault: () => void }) {
     event.preventDefault();
 
-    if (!formData?.title.trim()) {
+    if (!formData?.title.trim() || !formData?.description.trim()) {
       return;
     }
 
@@ -70,7 +70,8 @@ function TaskModal({ onSubmit }: TaskModalProps) {
               className="task-modal-input task-modal-textarea"
               value={formData?.description}
               onChange={event => updateField('description', event.target.value)}
-              placeholder="Task description"
+              placeholder="What exactly should be done?"
+              required
             />
           </label>
 

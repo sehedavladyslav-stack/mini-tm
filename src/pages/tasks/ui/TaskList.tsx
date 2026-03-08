@@ -66,8 +66,8 @@ function TaskList() {
 
     const task: Task = {
       id: crypto.randomUUID(),
-      title: data.title,
-      description: data.description,
+      title: data.title.trim(),
+      description: data.description.trim(),
       status: data.status,
       dueDate: data.dueDate,
       createdAt: createTaskData,
