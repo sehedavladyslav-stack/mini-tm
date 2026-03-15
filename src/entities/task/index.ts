@@ -1,3 +1,2 @@
-export type { Task } from './model/task';
-export type { TaskUI } from './model/task.ui';
+export { type Task, type TaskUI, useTaskQuery } from './model';
 export { TaskItem } from './ui/TaskItem';

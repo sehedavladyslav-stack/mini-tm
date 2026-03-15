@@ -1,2 +1,2 @@
-export type { Task, TaskUI } from './task';
+export { type Task, type TaskUI, useTaskQuery } from './task';
 export { TaskItem } from './task';

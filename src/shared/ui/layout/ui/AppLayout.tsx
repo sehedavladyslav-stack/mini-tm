@@ -1,28 +1,24 @@
 import { useEffect, useState } from 'react';
 import { NavLink, Outlet } from 'react-router';
 import { Logo } from '@/shared';
-
 type Theme = 'dark' | 'light';
 
+function getInitialTheme(): Theme {
+  const savedTheme = localStorage.getItem('app-theme');
+  return savedTheme === 'light' ? 'light' : 'dark';
+}
+
 function AppLayout() {
-  const [theme, setTheme] = useState<Theme>('dark');
+  const [theme, setTheme] = useState<Theme>(getInitialTheme);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('app-theme');
-    if (savedTheme === 'dark' || savedTheme === 'light') {
-      setTheme(savedTheme);
-      document.body.dataset.theme = savedTheme;
-      return;
-    }
-
-    document.body.dataset.theme = 'dark';
-  }, []);
+    document.body.dataset.theme = theme;
+    localStorage.setItem('app-theme', theme);
+  }, [theme]);
 
   function handleThemeToggle() {
     const nextTheme: Theme = theme === 'dark' ? 'light' : 'dark';
     setTheme(nextTheme);
-    document.body.dataset.theme = nextTheme;
-    localStorage.setItem('app-theme', nextTheme);
   }
 
   return (
