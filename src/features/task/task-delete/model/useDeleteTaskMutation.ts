@@ -1,6 +1,6 @@
-import { deleteTask, type ToastType } from '@/shared';
-import { queryClient } from '@/app';
-import { useMutation } from '@tanstack/react-query';
+import { deleteTask } from '@/entities';
+import type { ToastType } from '@/shared';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { NavigateFunction } from 'react-router-dom';
 
 type DeleteTaskMutationProps = {
@@ -9,6 +9,8 @@ type DeleteTaskMutationProps = {
 };
 
 export function useDeleteTaskMutation({ navigate, toast }: DeleteTaskMutationProps) {
+  const queryClient = useQueryClient();
+
   const { mutate: deleteTaskMutate } = useMutation({
     mutationFn: deleteTask,
     onSuccess: async () => {

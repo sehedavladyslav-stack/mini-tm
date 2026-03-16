@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router';
-import { getTasks, Loader } from '@/shared';
+import { useTasksQuery } from '@/entities';
+import { Loader } from '@/shared';
 
 type Period = 'today' | '7d' | '30d';
 
@@ -40,10 +40,7 @@ function parseTaskDate(value: string): Date | null {
 function Dashboard() {
   const [period, setPeriod] = useState<Period>('7d');
 
-  const { data: tasks = [], isPending, isError } = useQuery({
-    queryKey: ['tasks'],
-    queryFn: getTasks,
-  });
+  const { tasks, isPending, isError } = useTasksQuery();
 
   if (isPending) {
     return <Loader message="Loading dashboard" />;

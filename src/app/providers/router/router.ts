@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router';
-import { AppLayout } from 'shared';
+import { AppLayout } from '@/shared';
 import { Dashboard, NotFoundPage, TaskList, TaskPage } from 'pages';
 
 const router = createBrowserRouter([

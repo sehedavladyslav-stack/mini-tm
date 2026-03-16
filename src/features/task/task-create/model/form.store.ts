@@ -1,4 +1,4 @@
-import { createISODateString, type ISODateString } from 'shared';
+import { createISODateString, type ISODateString } from '@/shared';
 import { create } from 'zustand';
 
 type Status = 'completed' | 'todo' | 'canceled' | 'active';

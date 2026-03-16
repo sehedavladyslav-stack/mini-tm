@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { getTask, type TaskId } from '@/shared';
+import type { TaskId } from '@/shared/types';
+import { getTask } from '../../api/getTask';
 
 export function useTaskQuery(id: TaskId) {
   const { data: task, isLoading } = useQuery({

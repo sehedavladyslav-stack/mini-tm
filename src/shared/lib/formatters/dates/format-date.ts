@@ -1,4 +1,4 @@
-import type { FormattedDateString, ISODateString } from '@/shared';
+import type { FormattedDateString, ISODateString } from '@/shared/types';
 
 export function createISODateString(value: string | number | Date): ISODateString {
   const date = value instanceof Date ? value : new Date(value);

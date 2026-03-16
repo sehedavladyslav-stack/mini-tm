@@ -1,33 +1,10 @@
-import type { Task } from '@/entities';
-import { TaskItem } from '@/entities';
-import { TaskModal } from '@/shared/ui/modal';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { Button, createISODateString, createTask, getTasks, Loader, useToastStore } from '@/shared';
-import { queryClient, useModalStore } from '@/app';
+import { TaskItem, useTasksQuery } from '@/entities';
+import { CreateTaskModal, useCreateTaskModalStore } from '@/features';
+import { Button, Loader } from '@/shared';
 
 function TaskList() {
-  const { openModal } = useModalStore();
-  const toast = useToastStore(s => s.show);
-
-  const {
-    data: tasks = [],
-    isPending,
-    isError,
-  } = useQuery({
-    queryKey: ['tasks'],
-    queryFn: getTasks,
-  });
-
-  const createTaskMutation = useMutation({
-    mutationFn: createTask,
-    onSuccess: async () => {
-      queryClient.invalidateQueries({ queryKey: ['tasks'] });
-      toast('New task created', 'success');
-    },
-    onError: err => {
-      toast(err.message, 'error');
-    },
-  });
+  const { openModal } = useCreateTaskModalStore();
+  const { tasks, isPending, isError } = useTasksQuery();
 
   if (isPending) {
     return <Loader message="Loading" />;
@@ -35,21 +12,6 @@ function TaskList() {
 
   if (isError) {
     throw new Error('Bad request!');
-  }
-
-  function handleAddTask(data: Omit<Task, 'id' | 'createdAt' | 'updatedAt'>) {
-    const createTaskData = createISODateString(Date.now());
-
-    const task: Task = {
-      id: crypto.randomUUID(),
-      title: data.title.trim(),
-      description: data.description.trim(),
-      status: data.status,
-      dueDate: data.dueDate,
-      createdAt: createTaskData,
-      updatedAt: createTaskData,
-    };
-    createTaskMutation.mutate(task);
   }
 
   const activeTasks = tasks.filter(task => task.status === 'active').length;
@@ -111,7 +73,7 @@ function TaskList() {
           </Button>
         </div>
       )}
-      <TaskModal onSubmit={handleAddTask} />
+      <CreateTaskModal />
     </section>
   );
 }

@@ -1,7 +1,6 @@
-import { queryClient } from '@/app';
-import type { Task } from '@/entities';
-import { updateTaskStatus, type TaskId, type ToastType } from '@/shared';
-import { useMutation } from '@tanstack/react-query';
+import { updateTaskStatus, type Task } from '@/entities';
+import type { TaskId, ToastType } from '@/shared';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 type DeleteTaskMutationProps = {
   toast: (message: string, type?: ToastType | undefined) => void;
@@ -9,6 +8,8 @@ type DeleteTaskMutationProps = {
 };
 
 export function useUpdateStatusMutate({ toast, id }: DeleteTaskMutationProps) {
+  const queryClient = useQueryClient();
+
   const { mutate: updateStatusMutate, isPending: isStatusUpdating } = useMutation({
     mutationFn: ({ id, status }: { id: TaskId; status: Task['status'] }) =>
       updateTaskStatus(id, status),

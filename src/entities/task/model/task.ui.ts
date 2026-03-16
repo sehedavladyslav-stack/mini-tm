@@ -1,6 +1,4 @@
-import type { FormattedDateString } from 'shared';
-
-type TaskId = ReturnType<typeof crypto.randomUUID>;
+import type { FormattedDateString, TaskId } from '@/shared/types';
 
 type Status = 'completed' | 'todo' | 'canceled' | 'active';
 

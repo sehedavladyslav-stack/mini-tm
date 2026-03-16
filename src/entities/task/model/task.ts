@@ -1,6 +1,4 @@
-import type { ISODateString } from 'shared';
-
-type TaskId = ReturnType<typeof crypto.randomUUID>;
+import type { ISODateString, TaskId } from '@/shared/types';
 
 type Status = 'completed' | 'todo' | 'canceled' | 'active';
 

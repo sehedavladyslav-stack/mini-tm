@@ -1,17 +1,30 @@
-import { useModalStore, useTaskFormData, type TaskFormData } from '@/app';
-import { createISODateString } from '@/shared/lib';
-import type { ISODateString } from '@/shared/types';
-import { Button } from '@/shared';
-
-type TaskModalProps = {
-  onSubmit: (data: TaskFormData) => void;
-};
+import { Button, type ISODateString, type TaskId, createISODateString } from '@/shared';
+import type { Task } from '@/entities';
+import { useCreateTaskMutation } from '../model/useCreateTaskMutation';
+import { useCreateTaskModalStore } from '../model/modal.store';
+import { useTaskFormData, type TaskFormData } from '../model/form.store';
 
 const STATUS_VALUE: TaskFormData['status'][] = ['todo', 'active', 'completed', 'canceled'];
 
-function TaskModal({ onSubmit }: TaskModalProps) {
-  const { isOpen, closeModal } = useModalStore();
+function CreateTaskModal() {
+  const { isOpen, closeModal } = useCreateTaskModalStore();
   const { formData, updateField, reset } = useTaskFormData();
+  const createTaskMutation = useCreateTaskMutation();
+
+  function handleAddTask(data: Omit<Task, 'id' | 'createdAt' | 'updatedAt'>) {
+    const createTaskData = createISODateString(Date.now());
+
+    const task: Task = {
+      id: crypto.randomUUID() as TaskId,
+      title: data.title.trim(),
+      description: data.description.trim(),
+      status: data.status,
+      dueDate: data.dueDate,
+      createdAt: createTaskData,
+      updatedAt: createTaskData,
+    };
+    createTaskMutation.mutate(task);
+  }
 
   if (!isOpen) {
     return null;
@@ -24,7 +37,7 @@ function TaskModal({ onSubmit }: TaskModalProps) {
       return;
     }
 
-    onSubmit(formData);
+    handleAddTask(formData);
     closeModal();
     reset();
   }
@@ -124,4 +137,4 @@ function TaskModal({ onSubmit }: TaskModalProps) {
   );
 }
 
-export { TaskModal };
+export { CreateTaskModal };

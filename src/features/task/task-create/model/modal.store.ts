@@ -1,13 +1,13 @@
 import { create } from 'zustand';
 
-type ModalState = {
+type CreateTaskModalState = {
   isOpen: boolean;
   openModal: () => void;
   closeModal: () => void;
   toggleModal: () => void;
 };
 
-export const useModalStore = create<ModalState>(set => ({
+export const useCreateTaskModalStore = create<CreateTaskModalState>(set => ({
   isOpen: false,
 
   openModal: () => set({ isOpen: true }),
