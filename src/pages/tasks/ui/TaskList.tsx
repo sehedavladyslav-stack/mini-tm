@@ -1,9 +1,16 @@
 import { TaskItem, useTasksQuery } from '@/entities';
-import { CreateTaskModal, useCreateTaskModalStore } from '@/features';
+import {
+  CreateTaskModal,
+  TaskQueryControls,
+  getVisibleTasks,
+  useCreateTaskModalStore,
+  useTaskQueryStore,
+} from '@/features';
 import { Button, Loader } from '@/shared';
 
 function TaskList() {
   const { openModal } = useCreateTaskModalStore();
+  const { params } = useTaskQueryStore();
   const { tasks, isPending, isError } = useTasksQuery();
 
   if (isPending) {
@@ -17,6 +24,7 @@ function TaskList() {
   const activeTasks = tasks.filter(task => task.status === 'active').length;
   const todoTasks = tasks.filter(task => task.status === 'todo').length;
   const completedTasks = tasks.filter(task => task.status === 'completed').length;
+  const visibleTasks = getVisibleTasks(tasks, params);
 
   return (
     <section className="tasks-section" aria-labelledby="tasks-heading">
@@ -52,15 +60,9 @@ function TaskList() {
         </li>
       </ul>
 
-      {tasks.length > 0 ? (
-        <ul className="tasks-list">
-          {tasks.map(t => (
-            <li key={t.id}>
-              <TaskItem task={t} />
-            </li>
-          ))}
-        </ul>
-      ) : (
+      <TaskQueryControls />
+
+      {tasks.length === 0 ? (
         <div className="tasks-empty">
           <h3>No tasks yet</h3>
           <p>Create your first task to start tracking progress.</p>
@@ -71,6 +73,19 @@ function TaskList() {
           >
             Add first task
           </Button>
+        </div>
+      ) : visibleTasks.length > 0 ? (
+        <ul className="tasks-list">
+          {visibleTasks.map(t => (
+            <li key={t.id}>
+              <TaskItem task={t} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div className="tasks-empty">
+          <h3>No matching tasks</h3>
+          <p>Try changing the current filters or sorting settings.</p>
         </div>
       )}
       <CreateTaskModal />

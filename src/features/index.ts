@@ -1,1 +1,9 @@
-export { DeleteTaskButton, UpdateTaskSelect, CreateTaskModal, useCreateTaskModalStore } from './task';
+export {
+  DeleteTaskButton,
+  UpdateTaskSelect,
+  CreateTaskModal,
+  useCreateTaskModalStore,
+  TaskQueryControls,
+  useTaskQueryStore,
+  getVisibleTasks,
+} from './task';

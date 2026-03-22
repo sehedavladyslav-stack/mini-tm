@@ -3,7 +3,7 @@ import { Loader, type TaskId } from '@/shared';
 import { useTaskQuery } from '@/entities';
 import { UpdateTaskSelect, DeleteTaskButton } from '@/features';
 
-function TaskPage() {
+function TaskDetailPage() {
   const { taskId } = useParams();
   const id = taskId as TaskId;
   const { task, isLoading } = useTaskQuery(id);
@@ -69,4 +69,4 @@ function TaskPage() {
   );
 }
 
-export { TaskPage };
+export { TaskDetailPage };
