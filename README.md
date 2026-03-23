@@ -7,7 +7,7 @@ The app includes:
 - task board with task list
 - task details page
 - create, update, and delete task flows
-- local persistence via `localStorage`
+- switchable data source via `localStorage` or HTTP API
 
 ## Stack
 
@@ -37,6 +37,38 @@ Available commands:
 - `npm run lint` - ESLint
 - `npm run test` - run tests
 - `npm run check` - typecheck + lint + test
+
+## Environment
+
+Copy `.env.example` values into your local env file when needed.
+
+Available variables:
+
+```env
+VITE_TASK_SOURCE_MODE=local
+VITE_API_BASE_URL=/api
+```
+
+### Source Mode
+
+The app supports two task data source modes:
+
+- `local`
+  Uses browser `localStorage`
+- `http`
+  Uses HTTP requests to `${VITE_API_BASE_URL}/tasks`
+
+Examples:
+
+```env
+VITE_TASK_SOURCE_MODE=local
+VITE_API_BASE_URL=/api
+```
+
+```env
+VITE_TASK_SOURCE_MODE=http
+VITE_API_BASE_URL=https://example.com/api
+```
 
 ## Project Structure
 
@@ -77,7 +109,7 @@ Current pages:
 Examples:
 - `src/pages/dashboard/ui/Dashboard.tsx`
 - `src/pages/tasks/ui/TaskList.tsx`
-- `src/pages/tasks/ui/TaskPage.tsx`
+- `src/pages/task-detail/ui/TaskDetailPage.tsx`
 
 #### `entities`
 
@@ -116,31 +148,35 @@ Reusable and framework-agnostic pieces:
 - base UI (`Button`, `Loader`, `Logo`, `Toaster`)
 - utility functions
 - branded types
-- low-level API client over `localStorage`
+- infrastructure API adapters and source selection
 
 Examples:
 - `src/shared/ui`
 - `src/shared/lib`
 - `src/shared/types`
-- `src/shared/api/client/client.ts`
+- `src/shared/api/task-source`
+- `src/shared/api/base/http.ts`
 
 ## Task Data Flow
 
 The current task flow is split by responsibility:
 
-1. `shared/api/client/client.ts`
-   Low-level read/write operations for task data in `localStorage`.
+1. `shared/api/task-source/*`
+   Infrastructure adapters for task data sources (`local` or `http`).
 
-2. `entities/task/api/*`
+2. `shared/api/task-source/index.ts`
+   Selects active source via `VITE_TASK_SOURCE_MODE`.
+
+3. `entities/task/api/*`
    Entity-level API that adapts low-level storage to domain use cases.
 
-3. `entities/task/model/queries/*`
+4. `entities/task/model/queries/*`
    React Query hooks for reading task data.
 
-4. `features/task/*/model/*`
+5. `features/task/*/model/*`
    Mutation hooks for create/update/delete actions.
 
-5. `pages/*`
+6. `pages/*`
    Compose UI from entity and feature APIs.
 
 ## Architectural Rules
@@ -154,7 +190,9 @@ This repository currently follows these practical FSD rules:
 - `app` composes everything, but should avoid using its own public barrel internally
 
 In this project:
-- task CRUD storage lives in `shared/api/client`
+- task source selection lives in `shared/api/task-source`
+- local implementation lives in `shared/api/task-source/local-task-source.ts`
+- HTTP implementation lives in `shared/api/task-source/http-task-source.ts`
 - task business-facing API lives in `entities/task/api`
 - create-task modal state lives in `features/task/task-create/model`
 
@@ -172,12 +210,12 @@ Recommended style for new code:
 
 ## Notes
 
-- Data is stored in browser `localStorage`, so no backend is required
-- Initial tasks are seeded automatically on first load
+- `local` mode works without backend and seeds initial tasks on first load
+- `http` mode uses `fetch` via the shared infrastructure adapter
 - `React Query` is used for server-state-like orchestration even though storage is local
 
 ## Future Improvements
 
 - add a `widgets` layer if reusable page sections start growing
 - move route strings to a dedicated shared config if navigation becomes more complex
-- replace `localStorage` client with real HTTP API without changing page/feature structure
+- align `http-task-source` with a real backend contract
