@@ -1,10 +1,8 @@
 import { Button, type ISODateString, type TaskId, createISODateString } from '@/shared';
-import type { Task } from '@/entities';
+import { TASK_STATUSES, type Task } from '@/entities';
 import { useCreateTaskMutation } from '../model/useCreateTaskMutation';
 import { useCreateTaskModalStore } from '../model/modal.store';
 import { useTaskFormData, type TaskFormData } from '../model/form.store';
-
-const STATUS_VALUE: TaskFormData['status'][] = ['todo', 'active', 'completed', 'canceled'];
 
 function CreateTaskModal() {
   const { isOpen, closeModal } = useCreateTaskModalStore();
@@ -96,7 +94,7 @@ function CreateTaskModal() {
                 value={formData?.status}
                 onChange={event => {
                   const value = event.currentTarget.value;
-                  if (STATUS_VALUE.includes(value as TaskFormData['status'])) {
+                  if (TASK_STATUSES.includes(value as TaskFormData['status'])) {
                     updateField('status', value as TaskFormData['status']);
                   }
                 }}

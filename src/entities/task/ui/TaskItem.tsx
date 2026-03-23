@@ -1,18 +1,22 @@
-import { Link } from 'react-router';
-import type { TaskUI } from '@/entities';
+import type { TaskUI } from '../model';
 
 type TaskProps = {
   task: TaskUI;
+  href?: string;
 };
 
-function TaskItem({ task }: TaskProps) {
+function TaskItem({ task, href }: TaskProps) {
   return (
     <article className="task-card">
       <header className="task-card-header">
         <h3 className="task-card-title">
-          <Link className="task-card-link" to={`/tasks/${task.id}`}>
-            {task.title}
-          </Link>
+          {href ? (
+            <a className="task-card-link" href={href}>
+              {task.title}
+            </a>
+          ) : (
+            task.title
+          )}
         </h3>
         <span className={`task-status task-status--${task.status}`}>{task.status}</span>
       </header>

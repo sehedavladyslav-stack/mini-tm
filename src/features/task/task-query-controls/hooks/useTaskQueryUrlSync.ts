@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router';
-import { useTaskQueryStore } from '../model/task-query.store';
 import {
   createTaskQuerySearchParams,
   isSameTaskQueryParams,
   parseTaskQueryParams,
-} from '../model/url-params';
+  useTaskQueryStore,
+} from '../model';
 
 export function useTaskQueryUrlSync() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -25,7 +25,7 @@ export function useTaskQueryUrlSync() {
     const nextSearchParams = createTaskQuerySearchParams(params);
 
     if (nextSearchParams.toString() !== searchParams.toString()) {
-      setSearchParams(nextSearchParams, { replace: true });
+      setSearchParams(nextSearchParams);
     }
   }, [params, searchParams, setSearchParams]);
 }

@@ -79,7 +79,7 @@ function TaskList() {
         <ul className="tasks-list">
           {visibleTasks.map(t => (
             <li key={t.id}>
-              <TaskItem task={t} />
+              <TaskItem task={t} href={`/tasks/${t.id}`} />
             </li>
           ))}
         </ul>

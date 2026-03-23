@@ -1,12 +1,11 @@
 import type { ISODateString, TaskId } from '@/shared/types';
-
-type Status = 'completed' | 'todo' | 'canceled' | 'active';
+import type { TaskStatus } from './status';
 
 type Task = {
   id: TaskId;
   title: string;
   description: string;
-  status: Status;
+  status: TaskStatus;
   dueDate: ISODateString;
   createdAt: ISODateString;
   updatedAt: ISODateString;

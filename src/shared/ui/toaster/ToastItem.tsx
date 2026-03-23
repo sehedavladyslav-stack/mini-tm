@@ -1,5 +1,5 @@
-import { useToastStore, type Toast } from '@/shared';
 import { useEffect } from 'react';
+import { useToastStore, type Toast } from '../../lib/toast/toast.store';
 
 type Props = {
   toast: Toast;

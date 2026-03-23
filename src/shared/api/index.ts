@@ -1,8 +1,2 @@
-export {
-  getApiTasks,
-  setApiTask,
-  getApiTask,
-  updateApiTaskStatus,
-  deleteApiTask,
-} from './client/client';
-export type { ApiTask } from './client/client';
+export { taskSource } from './task-source';
+export type { ApiTask, ApiTaskStatus, TaskSource } from './task-source';

@@ -1,5 +1,5 @@
 import { type ButtonHTMLAttributes } from 'react';
-import { cn } from '@/shared';
+import { cn } from '../../../lib/utils/cn';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
 export type ButtonSize = 'sm' | 'md' | 'lg';

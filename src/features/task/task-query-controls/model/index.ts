@@ -1,11 +1,6 @@
-export { TaskQueryControls, TaskFilters, TaskSorting } from './ui';
-export { useTaskQueryUrlSync } from './hooks';
+export { INITIAL_TASK_QUERY_PARAMS, useTaskQueryStore } from './task-query.store';
+export { getVisibleTasks, filterTasks, sortTasks } from './selectors';
 export {
-  INITIAL_TASK_QUERY_PARAMS,
-  useTaskQueryStore,
-  getVisibleTasks,
-  filterTasks,
-  sortTasks,
   SEARCH_DEBOUNCE_MS,
   STATUS_OPTIONS,
   STATUS_VALUES,
@@ -13,14 +8,16 @@ export {
   SORT_FIELD_VALUES,
   SORT_ORDER_OPTIONS,
   SORT_ORDER_VALUES,
+} from './constants';
+export {
   createTaskQuerySearchParams,
   isSameTaskQueryParams,
   parseTaskQueryParams,
-} from './model';
+} from './url-params';
 export type {
   Option,
   TaskQueryParams,
   TaskSortField,
   TaskSortOrder,
   TaskStatusFilter,
-} from './model';
+} from './types';

@@ -1,1 +1,1 @@
-export { AppRouterProvider, router, queryClient, QueryProvider } from '@/app/providers';
+export { AppRouterProvider, router, queryClient, QueryProvider } from './providers';

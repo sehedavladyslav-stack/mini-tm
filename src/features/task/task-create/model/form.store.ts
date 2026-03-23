@@ -1,12 +1,11 @@
 import { createISODateString, type ISODateString } from '@/shared';
+import type { TaskStatus } from '@/entities';
 import { create } from 'zustand';
-
-type Status = 'completed' | 'todo' | 'canceled' | 'active';
 
 export type TaskFormData = {
   title: string;
   description: string;
-  status: Status;
+  status: TaskStatus;
   dueDate: ISODateString;
 };
 

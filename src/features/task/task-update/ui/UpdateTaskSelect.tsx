@@ -1,8 +1,6 @@
-import type { Task, TaskUI } from '@/entities';
+import { TASK_STATUSES, type Task, type TaskUI } from '@/entities';
 import { type TaskId, useToastStore } from '@/shared';
 import { useUpdateStatusMutate } from '../model/useUpdateTaskMutation';
-
-const STATUS_OPTIONS: Task['status'][] = ['todo', 'active', 'completed', 'canceled'];
 
 type UpdateTaskProps = {
   id: TaskId;
@@ -23,7 +21,7 @@ export function UpdateTaskSelect({ id, task }: UpdateTaskProps) {
         updateStatusMutate({ id: id, status: event.target.value as Task['status'] })
       }
     >
-      {STATUS_OPTIONS.map(status => (
+      {TASK_STATUSES.map(status => (
         <option key={status} value={status}>
           {status}
         </option>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink, Outlet } from 'react-router';
-import { Logo } from '@/shared';
+import { Logo } from '../../logo';
 type Theme = 'dark' | 'light';
 
 function getInitialTheme(): Theme {

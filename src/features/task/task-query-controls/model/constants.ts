@@ -1,7 +1,8 @@
+import { TASK_STATUSES } from '@/entities';
 import type { Option, TaskSortField, TaskSortOrder, TaskStatusFilter } from './types';
 
 const SEARCH_DEBOUNCE_MS = 300;
-const STATUS_VALUES: TaskStatusFilter[] = ['all', 'todo', 'active', 'completed', 'canceled'];
+const STATUS_VALUES: TaskStatusFilter[] = ['all', ...TASK_STATUSES];
 const SORT_FIELD_VALUES: TaskSortField[] = ['updatedAt', 'dueDate', 'title', 'status'];
 const SORT_ORDER_VALUES: TaskSortOrder[] = ['asc', 'desc'];
 

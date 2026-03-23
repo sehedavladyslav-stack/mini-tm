@@ -1,5 +1,5 @@
-import { useToastStore } from '@/shared';
-import { ToastItem } from '@/shared';
+import { useToastStore } from '../../lib/toast/toast.store';
+import { ToastItem } from './ToastItem';
 
 export function Toaster() {
   const toasts = useToastStore(s => s.toasts);

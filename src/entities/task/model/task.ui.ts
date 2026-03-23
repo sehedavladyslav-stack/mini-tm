@@ -1,12 +1,7 @@
-import type { FormattedDateString, TaskId } from '@/shared/types';
+import type { FormattedDateString } from '@/shared/types';
+import type { Task } from './task';
 
-type Status = 'completed' | 'todo' | 'canceled' | 'active';
-
-type TaskUI = {
-  id: TaskId;
-  title: string;
-  description: string;
-  status: Status;
+type TaskUI = Omit<Task, 'dueDate' | 'createdAt' | 'updatedAt'> & {
   dueDate: FormattedDateString;
   updatedAt: FormattedDateString;
 };

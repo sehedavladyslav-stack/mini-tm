@@ -1,4 +1,4 @@
-export { type Task, type TaskUI, useTaskQuery, useTasksQuery } from './model';
+export { type Task, type TaskStatus, type TaskUI, TASK_STATUSES, useTaskQuery, useTasksQuery } from './model';
 export { TaskItem } from './ui/TaskItem';
 export { createTask } from './api/createTask';
 export { deleteTask } from './api/deleteTask';
