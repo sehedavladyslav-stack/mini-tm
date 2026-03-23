@@ -1,9 +1,9 @@
-import type { TaskSortField, TaskSortOrder, TaskStatusFilter } from './types';
+import type { Option, TaskSortField, TaskSortOrder, TaskStatusFilter } from './types';
 
-type Option<T> = {
-  value: T;
-  label: string;
-};
+const SEARCH_DEBOUNCE_MS = 300;
+const STATUS_VALUES: TaskStatusFilter[] = ['all', 'todo', 'active', 'completed', 'canceled'];
+const SORT_FIELD_VALUES: TaskSortField[] = ['updatedAt', 'dueDate', 'title', 'status'];
+const SORT_ORDER_VALUES: TaskSortOrder[] = ['asc', 'desc'];
 
 const STATUS_OPTIONS: Option<TaskStatusFilter>[] = [
   { value: 'all', label: 'All tasks' },
@@ -25,4 +25,12 @@ const SORT_ORDER_OPTIONS: Option<TaskSortOrder>[] = [
   { value: 'desc', label: 'Descending' },
 ];
 
-export { STATUS_OPTIONS, SORT_FIELD_OPTIONS, SORT_ORDER_OPTIONS };
+export {
+  SEARCH_DEBOUNCE_MS,
+  STATUS_VALUES,
+  SORT_FIELD_VALUES,
+  SORT_ORDER_VALUES,
+  STATUS_OPTIONS,
+  SORT_FIELD_OPTIONS,
+  SORT_ORDER_OPTIONS,
+};

@@ -1,16 +1,17 @@
 import { TaskItem, useTasksQuery } from '@/entities';
+import { CreateTaskModal, useCreateTaskModalStore } from '@/features';
 import {
-  CreateTaskModal,
   TaskQueryControls,
   getVisibleTasks,
-  useCreateTaskModalStore,
   useTaskQueryStore,
-} from '@/features';
+  useTaskQueryUrlSync,
+} from '@/features/task/task-query-controls';
 import { Button, Loader } from '@/shared';
 
 function TaskList() {
   const { openModal } = useCreateTaskModalStore();
   const { params } = useTaskQueryStore();
+  useTaskQueryUrlSync();
   const { tasks, isPending, isError } = useTasksQuery();
 
   if (isPending) {

@@ -23,11 +23,21 @@ function parseFormattedDate(value: TaskUI['dueDate'] | TaskUI['updatedAt']): num
 }
 
 export function filterTasks(tasks: TaskUI[], params: TaskQueryParams): TaskUI[] {
-  if (params.status === 'all') {
-    return tasks;
-  }
+  const normalizedSearch = params.search.trim().toLowerCase();
 
-  return tasks.filter(task => task.status === params.status);
+  return tasks.filter(task => {
+    const matchesStatus = params.status === 'all' || task.status === params.status;
+
+    if (!normalizedSearch) {
+      return matchesStatus;
+    }
+
+    const matchesSearch =
+      task.title.toLowerCase().includes(normalizedSearch) ||
+      task.description.toLowerCase().includes(normalizedSearch);
+
+    return matchesStatus && matchesSearch;
+  });
 }
 
 export function sortTasks(tasks: TaskUI[], params: TaskQueryParams): TaskUI[] {

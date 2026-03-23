@@ -3,7 +3,4 @@ export {
   UpdateTaskSelect,
   CreateTaskModal,
   useCreateTaskModalStore,
-  TaskQueryControls,
-  useTaskQueryStore,
-  getVisibleTasks,
 } from './task';

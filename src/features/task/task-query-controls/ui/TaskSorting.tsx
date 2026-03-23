@@ -1,9 +1,11 @@
-import { SORT_FIELD_OPTIONS, SORT_ORDER_OPTIONS } from '../model/constants';
+import {
+  SORT_FIELD_OPTIONS,
+  SORT_FIELD_VALUES,
+  SORT_ORDER_OPTIONS,
+  SORT_ORDER_VALUES,
+} from '../model/constants';
 import { useTaskQueryStore } from '../model/task-query.store';
 import type { TaskSortField, TaskSortOrder } from '../model/types';
-
-const SORT_FIELD_VALUES: TaskSortField[] = SORT_FIELD_OPTIONS.map(option => option.value);
-const SORT_ORDER_VALUES: TaskSortOrder[] = SORT_ORDER_OPTIONS.map(option => option.value);
 
 function TaskSorting() {
   const sortBy = useTaskQueryStore(state => state.params.sortBy);
