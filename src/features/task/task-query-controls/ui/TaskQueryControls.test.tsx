@@ -3,7 +3,7 @@
 import { act } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { SEARCH_DEBOUNCE_MS, useTaskQueryStore } from '../model';
-import { click, render, setInputValue, setSelectValue } from '@/shared/test';
+import { click, render, setInputValue, setSelectValue } from '@/shared';
 import { TaskQueryControls } from './TaskQueryControls';
 
 describe('TaskQueryControls', () => {
@@ -31,7 +31,7 @@ describe('TaskQueryControls', () => {
     expect(container.textContent).toContain('Sort: Title (Ascending)');
 
     const resetButton = Array.from(container.querySelectorAll('button')).find(button =>
-      button.textContent?.includes('Reset'),
+      button.textContent?.includes('Reset')
     );
 
     if (!(resetButton instanceof HTMLButtonElement)) {
@@ -61,7 +61,10 @@ describe('TaskQueryControls', () => {
     const selects = container.querySelectorAll('select');
     const statusSelect = selects.item(0);
 
-    if (!(searchInput instanceof HTMLInputElement) || !(statusSelect instanceof HTMLSelectElement)) {
+    if (
+      !(searchInput instanceof HTMLInputElement) ||
+      !(statusSelect instanceof HTMLSelectElement)
+    ) {
       throw new Error('Controls were not rendered');
     }
 

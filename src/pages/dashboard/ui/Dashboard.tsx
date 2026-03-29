@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { Link } from 'react-router';
-import { useTasksQuery } from '@/entities';
-import { Loader } from '@/shared';
+import { useTasksQuery } from '@entities/index';
+import { Chart, Loader } from '@shared/index';
 
 type Period = 'today' | '7d' | '30d';
 
@@ -31,7 +30,7 @@ function parseTaskDate(value: string): Date | null {
     Number(hours),
     Number(minutes),
     0,
-    0,
+    0
   );
 
   return Number.isNaN(date.getTime()) ? null : date;
@@ -133,111 +132,46 @@ function Dashboard() {
 
   return (
     <section className="dashboard" aria-labelledby="dashboard-title">
-      <header className="dashboard-hero">
-        <div className="dashboard-hero-copy">
-          <p className="dashboard-kicker">Overview</p>
-          <h2 id="dashboard-title">Daily control panel</h2>
-          <p>Track delivery pace, monitor workload, and keep your team focused.</p>
-        </div>
-        <Link className="dashboard-hero-action" to="/tasks">
-          Open task board
-        </Link>
-      </header>
-
-      <section className="dashboard-filter" aria-label="Dashboard period filter">
-        <div className="dashboard-filter-copy">
-          <h3>Time range</h3>
-          <p>Data is calculated by task updates within the selected period.</p>
-        </div>
-        <div className="dashboard-filter-actions">
-          {PERIOD_OPTIONS.map(option => (
-            <button
-              key={option.value}
-              className={`dashboard-filter-btn ${period === option.value ? 'is-active' : ''}`}
-              type="button"
-              onClick={() => setPeriod(option.value)}
-            >
-              {option.label}
-            </button>
-          ))}
-        </div>
-      </section>
-
-      <ul className="dashboard-stats" aria-label="Task statistics">
-        <li className="dashboard-stat-card">
-          <span>Total tasks</span>
-          <strong>{totalTasks}</strong>
-        </li>
-        <li className="dashboard-stat-card">
-          <span>In progress</span>
-          <strong>{activeTasks}</strong>
-        </li>
-        <li className="dashboard-stat-card">
-          <span>To do</span>
-          <strong>{todoTasks}</strong>
-        </li>
-        <li className="dashboard-stat-card">
-          <span>Done</span>
-          <strong>{completedTasks}</strong>
-        </li>
-      </ul>
-
-      <section className="dashboard-progress" aria-label="Completion">
-        <div className="dashboard-progress-head">
-          <h3>Completion rate ({periodLabel})</h3>
-          <span>{completionRate}%</span>
-        </div>
-        <div className="dashboard-progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={completionRate}>
-          <div className="dashboard-progress-fill" style={{ width: `${completionRate}%` }} />
-        </div>
-        <p>
-          {completedTasks} completed, {activeTasks} in progress, {canceledTasks} canceled.
-        </p>
-      </section>
-
-      <section className="dashboard-activity" aria-labelledby="dashboard-activity-title">
-        <div className="dashboard-activity-head">
-          <h3 id="dashboard-activity-title">Activity chart</h3>
-          <span>{periodLabel}</span>
-        </div>
-        <div className="dashboard-activity-chart">
-          {chartPoints.map(point => (
-            <div key={point.label} className="dashboard-activity-column">
-              <span className="dashboard-activity-value">{point.value}</span>
-              <div className="dashboard-activity-bar-track">
-                <div
-                  className="dashboard-activity-bar-fill"
-                  style={{ height: `${(point.value / chartMax) * 100}%` }}
-                />
-              </div>
-              <span className="dashboard-activity-label">{point.label}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="dashboard-recent" aria-labelledby="dashboard-recent-title">
-        <div className="dashboard-recent-head">
-          <h3 id="dashboard-recent-title">Recent tasks ({periodLabel})</h3>
-          <Link to="/tasks">View all</Link>
-        </div>
-        {recentTasks.length > 0 ? (
-          <ul className="dashboard-recent-list">
-            {recentTasks.map(task => (
-              <li key={task.id}>
-                <Link className="dashboard-recent-link" to={`/tasks/${task.id}`}>
-                  <div>
-                    <strong>{task.title}</strong>
-                    <p>{task.description || 'No description added yet.'}</p>
-                  </div>
-                  <span className={`task-status task-status--${task.status}`}>{task.status}</span>
-                </Link>
-              </li>
+      <Chart></Chart>
+      <section>
+        <section className="dashboard-filter" aria-label="Dashboard period filter">
+          <div className="dashboard-filter-copy">
+            <h3>Time range</h3>
+            <p>Data is calculated by task updates within the selected period.</p>
+          </div>
+          <div className="dashboard-filter-actions">
+            {PERIOD_OPTIONS.map(option => (
+              <button
+                key={option.value}
+                className={`dashboard-filter-btn ${period === option.value ? 'is-active' : ''}`}
+                type="button"
+                onClick={() => setPeriod(option.value)}
+              >
+                {option.label}
+              </button>
             ))}
-          </ul>
-        ) : (
-          <p className="dashboard-empty">No tasks yet. Create your first task in the board.</p>
-        )}
+          </div>
+        </section>
+        <section className="dashboard-activity" aria-labelledby="dashboard-activity-title">
+          <div className="dashboard-activity-head">
+            <h3 id="dashboard-activity-title">Activity chart</h3>
+            <span>{periodLabel}</span>
+          </div>
+          <div className="dashboard-activity-chart">
+            {chartPoints.map(point => (
+              <div key={point.label} className="dashboard-activity-column">
+                <span className="dashboard-activity-value">{point.value}</span>
+                <div className="dashboard-activity-bar-track">
+                  <div
+                    className="dashboard-activity-bar-fill"
+                    style={{ height: `${(point.value / chartMax) * 100}%` }}
+                  />
+                </div>
+                <span className="dashboard-activity-label">{point.label}</span>
+              </div>
+            ))}
+          </div>
+        </section>
       </section>
     </section>
   );

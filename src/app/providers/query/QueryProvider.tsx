@@ -1,6 +1,6 @@
 import { AppRouterProvider } from '../router/RouterProvider';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { Toaster } from '@/shared';
+import { Toaster } from '@/shared/index';
 import { queryClient } from './queryClient';
 
 function QueryProvider() {

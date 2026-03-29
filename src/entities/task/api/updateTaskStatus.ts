@@ -1,5 +1,5 @@
-import { taskSource } from '@/shared/api';
-import type { TaskId } from '@/shared/types';
+import { taskSource } from '@/shared';
+import type { TaskId } from '@/shared';
 import type { Task } from '../model';
 
 export async function updateTaskStatus(taskId: TaskId, status: Task['status']): Promise<void> {

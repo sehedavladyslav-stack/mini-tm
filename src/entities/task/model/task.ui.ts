@@ -1,4 +1,4 @@
-import type { FormattedDateString } from '@/shared/types';
+import type { FormattedDateString } from '@/shared';
 import type { Task } from './task';
 
 type TaskUI = Omit<Task, 'dueDate' | 'createdAt' | 'updatedAt'> & {

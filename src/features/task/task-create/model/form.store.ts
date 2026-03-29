@@ -1,5 +1,5 @@
-import { createISODateString, type ISODateString } from '@/shared';
-import type { TaskStatus } from '@/entities';
+import { createISODateString, type ISODateString } from '@shared/index';
+import type { TaskStatus } from '@entities/index';
 import { create } from 'zustand';
 
 export type TaskFormData = {

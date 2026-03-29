@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { click, render, submit } from '@/shared/test';
+import { click, render, submit } from '@/shared';
 import { INITIAL_FORM, useTaskFormData } from '../model/form.store';
 import { useCreateTaskModalStore } from '../model/modal.store';
 
@@ -81,7 +81,7 @@ describe('CreateTaskModal', () => {
 
     const { container, unmount } = await render(<CreateTaskModal />);
     const closeButton = Array.from(container.querySelectorAll('button')).find(button =>
-      button.textContent?.includes('Close'),
+      button.textContent?.includes('Close')
     );
 
     if (!(closeButton instanceof HTMLButtonElement)) {

@@ -1,4 +1,4 @@
-import { taskSource } from '@/shared/api';
+import { taskSource } from '@/shared';
 import type { Task } from '../model';
 
 export async function createTask(task: Task): Promise<void> {

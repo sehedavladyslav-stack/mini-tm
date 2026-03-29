@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createTask } from '@/entities';
-import { useToastStore } from '@/shared';
+import { createTask } from '@entities/index';
+import { useToastStore } from '@shared/index';
 
 export function useCreateTaskMutation() {
   const toast = useToastStore(s => s.show);

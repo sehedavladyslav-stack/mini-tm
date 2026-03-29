@@ -1,4 +1,4 @@
-import type { ISODateString, TaskId } from '@/shared/types';
+import type { ISODateString, TaskId } from '@/shared';
 import type { TaskStatus } from './status';
 
 type Task = {

@@ -1,5 +1,5 @@
-import { Button, type ISODateString, type TaskId, createISODateString } from '@/shared';
-import { TASK_STATUSES, type Task } from '@/entities';
+import { Button, type ISODateString, type TaskId, createISODateString } from '@shared/index';
+import { TASK_STATUSES, type Task } from '@entities/index';
 import { useCreateTaskMutation } from '../model/useCreateTaskMutation';
 import { useCreateTaskModalStore } from '../model/modal.store';
 import { useTaskFormData, type TaskFormData } from '../model/form.store';

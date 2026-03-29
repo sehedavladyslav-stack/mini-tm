@@ -1,8 +1,5 @@
 @layer components {
   .ui-btn {
-    /* typography: default for buttons */
-    /* @apply text-body; */
-
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -46,9 +43,6 @@
   .ui-btn--lg {
     height: 44px;
     padding: 0 20px;
-
-    /* large buttons can use bigger text */
-    /* @apply text-body-lg; */
   }
 
   /* variants */

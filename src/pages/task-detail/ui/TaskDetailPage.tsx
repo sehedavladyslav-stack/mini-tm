@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router';
-import { Loader, type TaskId } from '@/shared';
-import { useTaskQuery } from '@/entities';
+import { Loader, type TaskId } from '@shared/index';
+import { useTaskQuery } from '@entities/index';
 import { UpdateTaskSelect, DeleteTaskButton } from '@/features';
 
 function TaskDetailPage() {

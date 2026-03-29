@@ -1,4 +1,4 @@
-import { formatDate } from '@/shared/lib';
+import { formatDate } from '@/shared';
 import type { Task, TaskUI } from '../model';
 
 export function fromTaskToUI(data: Omit<Task, 'createdAt'>): TaskUI {

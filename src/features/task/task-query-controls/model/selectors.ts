@@ -16,7 +16,7 @@ function parseFormattedDate(value: TaskUI['dueDate'] | TaskUI['updatedAt']): num
     Number(hours),
     Number(minutes),
     0,
-    0,
+    0
   );
 
   return Number.isNaN(date.getTime()) ? 0 : date.getTime();

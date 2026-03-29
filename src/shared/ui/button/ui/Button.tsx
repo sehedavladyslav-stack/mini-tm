@@ -25,7 +25,7 @@ export function Button({
       disabled={disabled}
       {...props}
     >
-      <span className="ui-btn__text"> {children}</span>
+      <span className="ui-btn__text">{children}</span>
     </button>
   );
 }

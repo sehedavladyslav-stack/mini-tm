@@ -9,9 +9,11 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "shared": ["./src/shared"],
-      "pages": ["./src/pages"],
-      "@/*": ["./src/*"]
+      "@shared/*": ["src/shared/*"],
+      "@entities/*": ["src/entities/*"],
+      "@features/*": ["src/features/*"],
+      "@pages/*": ["src/pages/*"],
+      "@/*": ["src/*"]
     },
 
     /* Bundler mode */

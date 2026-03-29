@@ -2,9 +2,9 @@
 
 import { MemoryRouter, Route, Routes, useLocation } from 'react-router';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import type { TaskUI } from '@/entities';
-import { click, flushPromises, render } from '@/shared/test';
-import { useTaskQueryStore } from '@/features/task/task-query-controls';
+import type { TaskUI } from '@entities/index';
+import { click, flushPromises, render } from '@/shared';
+import { useTaskQueryStore } from '@/features';
 
 const useTasksQueryMock = vi.fn();
 const openModalMock = vi.fn();

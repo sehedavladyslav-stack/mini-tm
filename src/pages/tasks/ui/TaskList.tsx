@@ -5,7 +5,7 @@ import {
   getVisibleTasks,
   useTaskQueryStore,
   useTaskQueryUrlSync,
-} from '@/features/task/task-query-controls';
+} from '@/features';
 import { Button, Loader } from '@/shared';
 
 function TaskList() {

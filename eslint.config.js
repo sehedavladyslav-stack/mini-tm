@@ -2,7 +2,9 @@ import js from '@eslint/js';
 import globals from 'globals';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
-import tseslint, { parser } from 'typescript-eslint';
+import tseslint from 'typescript-eslint';
+import typescriptParser from '@typescript-eslint/parser';
+import typescriptEslintPlugin from '@typescript-eslint/eslint-plugin';
 import boundaries from 'eslint-plugin-boundaries';
 import configPrettier from 'eslint-config-prettier';
 import { defineConfig, globalIgnores } from 'eslint/config';
@@ -18,11 +20,18 @@ export default defineConfig([
       reactRefresh.configs.vite,
     ],
     plugins: {
-      '@typescript-eslint': tseslint.plugin,
+      '@typescript-eslint': typescriptEslintPlugin,
       boundaries,
     },
     settings: {
+      'import/resolver': {
+        typescript: {
+          alwaysTryTypes: true,
+          project: './tsconfig.json',
+        },
+      },
       'boundaries/include': ['src/**/*'],
+      'boundaries/dependency-nodes': ['import'],
       'boundaries/elements': [
         { type: 'app', pattern: 'src/app/**' },
         { type: 'pages', pattern: 'src/pages/**' },
@@ -34,23 +43,55 @@ export default defineConfig([
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
-      parser,
+      parser: typescriptParser,
       parserOptions: {
         projectService: true,
       },
     },
     rules: {
-      'boundaries/no-unknown': 'off',
-      'boundaries/element-types': [
+      'boundaries/no-unknown': 'error',
+      'boundaries/no-unknown-files': 'error',
+      'boundaries/dependencies': [
         'error',
         {
           default: 'disallow',
           rules: [
-            { from: 'app', allow: [] },
-            { from: 'pages', allow: ['features', 'entities', 'shared'] },
-            { from: 'features', allow: ['entities', 'shared'] },
-            { from: 'entities', allow: ['shared'] },
-            { from: 'shared', allow: [] },
+            {
+              from: { type: 'app' },
+              allow: {
+                to: {
+                  type: ['pages', 'features', 'entities', 'shared'],
+                  internalPath: 'index.ts',
+                },
+              },
+              message: '{{from.type}} is not allowed to depend on {{to.type}}',
+            },
+            {
+              from: { type: 'pages' },
+              allow: {
+                to: { type: ['features', 'entities', 'shared'], internalPath: 'index.ts' },
+              },
+              message: '{{from.type}} is not allowed to depend on {{to.type}}',
+            },
+            {
+              from: { type: 'features' },
+              allow: {
+                to: { type: ['entities', 'shared'], internalPath: 'index.ts' },
+              },
+              message: '{{from.type}} is not allowed to depend on {{to.type}}',
+            },
+            {
+              from: { type: 'entities' },
+              allow: {
+                to: { type: 'shared', internalPath: 'index.ts' },
+              },
+              message: '{{from.type}} is not allowed to depend on {{to.type}}',
+            },
+            {
+              from: { type: 'shared' },
+              allow: { to: { type: 'shared', internalPath: 'index.ts' } },
+              message: '{{from.type}} is not allowed to depend on {{to.type}}',
+            },
           ],
         },
       ],

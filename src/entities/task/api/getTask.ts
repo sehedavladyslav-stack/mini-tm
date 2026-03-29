@@ -1,6 +1,6 @@
-import type { TaskId } from '@/shared/types';
+import type { TaskId } from '@/shared';
 import type { TaskUI } from '../model';
-import { taskSource } from '@/shared/api';
+import { taskSource } from '@/shared';
 import { fromTaskToUI } from '../lib/mapTaskToUI';
 
 export async function getTask(taskId: TaskId): Promise<TaskUI> {

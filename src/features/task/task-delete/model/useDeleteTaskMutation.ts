@@ -1,5 +1,5 @@
-import { deleteTask } from '@/entities';
-import type { ToastType } from '@/shared';
+import { deleteTask } from '@entities/index';
+import type { ToastType } from '@shared/index';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { NavigateFunction } from 'react-router-dom';
 
