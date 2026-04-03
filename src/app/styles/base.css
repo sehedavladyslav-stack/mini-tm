@@ -1,19 +1,31 @@
 @theme inline {
   --color-background: var(--app-background);
   --color-foreground: var(--app-foreground);
+  --color-surface: var(--app-surface);
+  --color-muted: var(--app-muted);
   --color-border: var(--app-border);
+  --color-primary: var(--app-primary);
+  --color-primary-foreground: var(--app-primary-foreground);
 }
 
 :root {
   --app-background: oklch(96.7% 0.001 286.375);
   --app-foreground: oklch(21% 0.006 285.885);
-  --app-border: oklch(21% 0.006 285.885);
+  --app-surface: oklch(100% 0 0);
+  --app-muted: oklch(92% 0.004 286.32);
+  --app-border: oklch(87% 0.006 286.286);
+  --app-primary: oklch(21% 0.006 285.885);
+  --app-primary-foreground: oklch(98% 0.001 286.375);
 }
 
 [data-theme='dark'] {
   --app-background: oklch(37% 0.013 285.805);
   --app-foreground: oklch(96.7% 0.001 286.375);
-  --app-border: oklch(96.7% 0.001 286.375);
+  --app-surface: oklch(30% 0.01 286);
+  --app-muted: oklch(44% 0.01 286);
+  --app-border: oklch(50% 0.01 286);
+  --app-primary: oklch(96.7% 0.001 286.375);
+  --app-primary-foreground: oklch(21% 0.006 285.885);
 }
 
 @layer base {
@@ -136,10 +148,6 @@ body[data-theme='light'] .app-main {
 
 .tasks-title {
   @apply text-xl font-semibold tracking-tight text-zinc-900;
-}
-
-.tasks-add-button {
-  @apply rounded-xl border border-teal-300/70 bg-linear-to-r from-teal-500 to-cyan-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400/70;
 }
 
 .tasks-list {

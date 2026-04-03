@@ -1,31 +1,20 @@
-import { type ButtonHTMLAttributes } from 'react';
+import { forwardRef, type ButtonHTMLAttributes } from 'react';
+import { buttonVariants, type ButtonVariants } from './button.variants';
 import { cn } from '../../../lib/utils/cn';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
-export type ButtonSize = 'sm' | 'md' | 'lg';
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & ButtonVariants;
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: ButtonVariant;
-  size?: ButtonSize;
-};
-
-export function Button({
-  variant = 'primary',
-  size = 'md',
-  className,
-  children,
-  type = 'button',
-  disabled,
-  ...props
-}: ButtonProps) {
-  return (
-    <button
-      type={type}
-      className={cn('ui-btn', `ui-btn--${variant}`, `ui-btn--${size}`, className)}
-      disabled={disabled}
-      {...props}
-    >
-      <span className="ui-btn__text">{children}</span>
-    </button>
-  );
-}
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ variant, size, fullWidth, className, children, type = 'button', ...props }, ref) => {
+    return (
+      <button
+        type={type}
+        ref={ref}
+        className={cn(buttonVariants({ variant, size, fullWidth }), className)}
+        {...props}
+      >
+        <span className="min-w-0 truncate`">{children}</span>
+      </button>
+    );
+  }
+);
