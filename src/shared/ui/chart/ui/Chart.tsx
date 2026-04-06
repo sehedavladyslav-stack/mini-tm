@@ -1,7 +1,7 @@
 export function Chart() {
   return (
     <section>
-      <div className="max-w-sm w-full bg-zinc-100 border rounded-2xl p-4 md:p-6">
+      <div className="max-w-sm w-full border rounded-2xl p-4 md:p-6">
         <div className="flex justify-between mb-4 md:mb-6">
           <div className="flex items-center">
             <div className="flex justify-center items-center">

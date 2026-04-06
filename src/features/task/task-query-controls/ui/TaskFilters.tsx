@@ -26,10 +26,12 @@ function TaskFilters() {
 
   return (
     <>
-      <label className="tasks-control-field tasks-control-field--search">
-        <span>Search</span>
+      <label className="grid min-w-0 gap-1.5">
+        <span className="text-[0.76rem] font-bold tracking-[0.08em] text-foreground/55 uppercase">
+          Search
+        </span>
         <input
-          className="tasks-control-input"
+          className="min-h-10 rounded-xl border border-border bg-background px-3 text-foreground outline-none transition-colors duration-150 placeholder:text-foreground/45 focus:border-primary/55"
           type="search"
           value={inputValue}
           placeholder="Search by title or description"
@@ -37,10 +39,12 @@ function TaskFilters() {
         />
       </label>
 
-      <label className="tasks-control-field">
-        <span>Status</span>
+      <label className="grid gap-1.5">
+        <span className="text-[0.76rem] font-bold tracking-[0.08em] text-foreground/55 uppercase">
+          Status
+        </span>
         <select
-          className="tasks-control-input"
+          className="min-h-10 rounded-xl border border-border bg-background px-3 text-foreground outline-none transition-colors duration-150 focus:border-primary/55"
           value={status}
           onChange={event => {
             const value = event.currentTarget.value;

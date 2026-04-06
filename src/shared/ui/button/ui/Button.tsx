@@ -13,7 +13,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={cn(buttonVariants({ variant, size, fullWidth }), className)}
         {...props}
       >
-        <span className="min-w-0 truncate`">{children}</span>
+        <span className="min-w-0 truncate">{children}</span>
       </button>
     );
   }

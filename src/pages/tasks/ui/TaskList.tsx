@@ -13,6 +13,14 @@ function TaskList() {
   const { params } = useTaskQueryStore();
   useTaskQueryUrlSync();
   const { tasks, isPending, isError } = useTasksQuery();
+  const statCardClassName =
+    'relative grid gap-1.5 rounded-[20px] border border-border bg-surface px-4 py-4 shadow-(--app-shadow)';
+  const statLabelClassName =
+    'text-[0.72rem] font-bold tracking-[0.14em] text-foreground/55 uppercase';
+  const statValueClassName =
+    'text-[clamp(1.25rem,2vw,1.7rem)] font-extrabold text-foreground';
+  const emptyStateClassName =
+    'mt-4 grid gap-2.5 rounded-[22px] border border-dashed border-border bg-surface px-6 py-7 text-center shadow-(--app-shadow)';
 
   if (isPending) {
     return <Loader message="Loading" />;
@@ -28,47 +36,79 @@ function TaskList() {
   const visibleTasks = getVisibleTasks(tasks, params);
 
   return (
-    <section className="tasks-section" aria-labelledby="tasks-heading">
-      <div className="tasks-header" id="tasks-header">
-        <div className="tasks-heading-wrap">
-          <p className="tasks-kicker">Workspace</p>
-          <h2 className="tasks-title" id="tasks-heading">
+    <section
+      className="flex flex-col gap-4 font-['Segoe_UI_Variable_Display','Trebuchet_MS','Verdana','Tahoma',sans-serif]"
+      aria-labelledby="tasks-heading"
+    >
+      <div
+        className="relative flex flex-col items-start gap-3 overflow-hidden rounded-[22px] border border-border bg-surface px-5 py-4 text-foreground shadow-(--app-shadow) md:flex-row md:items-center md:justify-between"
+        id="tasks-header"
+      >
+        <div className="grid gap-2">
+          <p className="m-0 text-[0.72rem] font-bold tracking-[0.16em] text-foreground/55 uppercase">
+            Workspace
+          </p>
+          <h2
+            className="m-0 text-[clamp(1.5rem,2.3vw,2.1rem)] tracking-[-0.02em] text-foreground"
+            id="tasks-heading"
+          >
             Task board
           </h2>
-          <p className="tasks-subtitle">Keep priorities visible and ship work every day.</p>
+          <p className="m-0 max-w-[54ch] leading-[1.55] text-foreground/68">
+            Keep priorities visible and ship work every day.
+          </p>
         </div>
-        <Button className="tasks-add-button" type="button" onClick={() => openModal()}>
+        <Button className="w-full md:w-auto" type="button" onClick={() => openModal()}>
           Create task
         </Button>
       </div>
 
-      <ul className="tasks-metrics" aria-label="Task statistics">
-        <li className="tasks-metric-card">
-          <span className="tasks-metric-label">Total</span>
-          <span className="tasks-metric-value">{tasks.length}</span>
+      <ul
+        className="m-0 mt-4 grid list-none grid-cols-1 gap-3 p-0 md:grid-cols-2"
+        aria-label="Task statistics"
+      >
+        <li className={statCardClassName}>
+          <span className={statLabelClassName}>
+            Total
+          </span>
+          <span className={statValueClassName}>
+            {tasks.length}
+          </span>
         </li>
-        <li className="tasks-metric-card">
-          <span className="tasks-metric-label">In progress</span>
-          <span className="tasks-metric-value">{activeTasks}</span>
+        <li className={statCardClassName}>
+          <span className={statLabelClassName}>
+            In progress
+          </span>
+          <span className={statValueClassName}>
+            {activeTasks}
+          </span>
         </li>
-        <li className="tasks-metric-card">
-          <span className="tasks-metric-label">To do</span>
-          <span className="tasks-metric-value">{todoTasks}</span>
+        <li className={statCardClassName}>
+          <span className={statLabelClassName}>
+            To do
+          </span>
+          <span className={statValueClassName}>
+            {todoTasks}
+          </span>
         </li>
-        <li className="tasks-metric-card">
-          <span className="tasks-metric-label">Done</span>
-          <span className="tasks-metric-value">{completedTasks}</span>
+        <li className={statCardClassName}>
+          <span className={statLabelClassName}>
+            Done
+          </span>
+          <span className={statValueClassName}>
+            {completedTasks}
+          </span>
         </li>
       </ul>
 
       <TaskQueryControls />
 
       {tasks.length === 0 ? (
-        <div className="tasks-empty">
-          <h3>No tasks yet</h3>
-          <p>Create your first task to start tracking progress.</p>
+        <div className={emptyStateClassName}>
+          <h3 className="m-0 text-[1.2rem] tracking-[-0.01em] text-foreground">No tasks yet</h3>
+          <p className="m-0 text-foreground/68">Create your first task to start tracking progress.</p>
           <Button
-            className="tasks-add-button tasks-empty-action"
+            className="w-full justify-self-center md:w-auto"
             type="button"
             onClick={() => openModal()}
           >
@@ -76,17 +116,21 @@ function TaskList() {
           </Button>
         </div>
       ) : visibleTasks.length > 0 ? (
-        <ul className="tasks-list">
+        <ul className="mt-4 grid gap-4">
           {visibleTasks.map(t => (
-            <li key={t.id}>
+            <li key={t.id} className="translate-y-0 opacity-100 transition-transform duration-200">
               <TaskItem task={t} href={`/tasks/${t.id}`} />
             </li>
           ))}
         </ul>
       ) : (
-        <div className="tasks-empty">
-          <h3>No matching tasks</h3>
-          <p>Try changing the current filters or sorting settings.</p>
+        <div className={emptyStateClassName}>
+          <h3 className="m-0 text-[1.2rem] tracking-[-0.01em] text-foreground">
+            No matching tasks
+          </h3>
+          <p className="m-0 text-foreground/68">
+            Try changing the current filters or sorting settings.
+          </p>
         </div>
       )}
       <CreateTaskModal />

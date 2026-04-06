@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTasksQuery } from '@entities/index';
-import { Chart, Loader } from '@shared/index';
+import { Button, Chart, Loader } from '@shared/index';
 
 type Period = 'today' | '7d' | '30d';
 
@@ -130,44 +130,74 @@ function Dashboard() {
   const chartMax = Math.max(...chartPoints.map(point => point.value), 1);
   const periodLabel = PERIOD_OPTIONS.find(item => item.value === period)?.label ?? '7 days';
 
+  const chartStyle = {
+    border: '1px solid color-mix(in oklch, var(--app-border) 45%, transparent)',
+  };
+  const barTrackStyle = {
+    background: 'color-mix(in oklch, var(--app-muted) 65%, transparent)',
+    border: '1px solid color-mix(in oklch, var(--app-border) 40%, transparent)',
+  };
+  const barFillStyle = {
+    background: 'var(--app-primary)',
+  };
+
   return (
-    <section className="dashboard" aria-labelledby="dashboard-title">
-      <Chart></Chart>
-      <section>
-        <section className="dashboard-filter" aria-label="Dashboard period filter">
-          <div className="dashboard-filter-copy">
-            <h3>Time range</h3>
-            <p>Data is calculated by task updates within the selected period.</p>
+    <section className="flex flex-wrap gap-4" aria-labelledby="dashboard-title">
+      <Chart />
+      <section className="flex flex-col gap-3">
+        <section
+          className="flex flex-col items-stretch gap-3 rounded-md p-4 text-foreground shadow-(--app-shadow) lg:flex-row lg:items-center lg:justify-between"
+          aria-label="Dashboard period filter"
+        >
+          <div className="grid grid-cols-1 gap-1">
+            <h3 className="m-0 text-base font-medium">Time range</h3>
+            <p className="m-0 text-sm text-foreground/70">
+              Data is calculated by task updates within the selected period.
+            </p>
           </div>
-          <div className="dashboard-filter-actions">
+          <div className="flex flex-wrap items-center gap-2 lg:justify-between">
             {PERIOD_OPTIONS.map(option => (
-              <button
+              <Button
                 key={option.value}
-                className={`dashboard-filter-btn ${period === option.value ? 'is-active' : ''}`}
                 type="button"
                 onClick={() => setPeriod(option.value)}
+                className={`${option.value === period ? 'bg-muted shadow-xs' : ''} flex-1 basis-[30%] lg:basis-auto`}
               >
                 {option.label}
-              </button>
+              </Button>
             ))}
           </div>
         </section>
-        <section className="dashboard-activity" aria-labelledby="dashboard-activity-title">
-          <div className="dashboard-activity-head">
-            <h3 id="dashboard-activity-title">Activity chart</h3>
-            <span>{periodLabel}</span>
+        <section
+          className="grid gap-4 rounded-md p-4 text-foreground shadow-(--app-shadow)"
+          aria-labelledby="dashboard-activity-title"
+        >
+          <div className="flex items-center justify-between gap-2.5">
+            <h3 id="dashboard-activity-title" className="m-0 text-[1.05rem]">
+              Activity chart
+            </h3>
+            <span className="text-[0.85rem] font-bold text-foreground/70">{periodLabel}</span>
           </div>
-          <div className="dashboard-activity-chart">
+          <div
+            className="grid min-h-47.5 auto-rows-fr grid-cols-[repeat(8,minmax(24px,1fr))] items-end gap-2 overflow-x-auto rounded-[14px] p-3 min-[721px]:grid-cols-[repeat(auto-fit,minmax(22px,1fr))]"
+            style={chartStyle}
+          >
             {chartPoints.map(point => (
-              <div key={point.label} className="dashboard-activity-column">
-                <span className="dashboard-activity-value">{point.value}</span>
-                <div className="dashboard-activity-bar-track">
+              <div key={point.label} className="grid justify-items-center gap-1.5">
+                <span className="text-[0.72rem] font-bold text-foreground/65">{point.value}</span>
+                <div
+                  className="flex h-27.5 w-full items-end overflow-hidden rounded-full"
+                  style={barTrackStyle}
+                >
                   <div
-                    className="dashboard-activity-bar-fill"
-                    style={{ height: `${(point.value / chartMax) * 100}%` }}
+                    className="min-h-0.5 w-full rounded-[inherit]"
+                    style={{
+                      ...barFillStyle,
+                      height: `${(point.value / chartMax) * 100}%`,
+                    }}
                   />
                 </div>
-                <span className="dashboard-activity-label">{point.label}</span>
+                <span className="text-[0.68rem] text-foreground/55">{point.label}</span>
               </div>
             ))}
           </div>

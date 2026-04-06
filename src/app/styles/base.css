@@ -9,23 +9,27 @@
 }
 
 :root {
-  --app-background: oklch(96.7% 0.001 286.375);
-  --app-foreground: oklch(21% 0.006 285.885);
-  --app-surface: oklch(100% 0 0);
-  --app-muted: oklch(92% 0.004 286.32);
-  --app-border: oklch(87% 0.006 286.286);
-  --app-primary: oklch(21% 0.006 285.885);
-  --app-primary-foreground: oklch(98% 0.001 286.375);
+  --app-background: oklch(97.3% 0.004 286.2);
+  --app-foreground: oklch(27% 0.014 281.5);
+  --app-surface: oklch(99.1% 0.002 286.1);
+  --app-muted: oklch(94.2% 0.008 286.4);
+  --app-border: oklch(82% 0.012 286.1);
+  --app-primary: oklch(78% 0.02 284.8);
+  --app-primary-foreground: oklch(27% 0.014 281.5);
+  --app-shadow-color: oklch(82% 0.012 286.1 / 0.45);
+  --app-shadow: 0 0 6px 0 var(--app-shadow-color);
 }
 
 [data-theme='dark'] {
-  --app-background: oklch(37% 0.013 285.805);
-  --app-foreground: oklch(96.7% 0.001 286.375);
-  --app-surface: oklch(30% 0.01 286);
-  --app-muted: oklch(44% 0.01 286);
-  --app-border: oklch(50% 0.01 286);
-  --app-primary: oklch(96.7% 0.001 286.375);
-  --app-primary-foreground: oklch(21% 0.006 285.885);
+  --app-background: oklch(32% 0.012 286.1);
+  --app-foreground: oklch(95.6% 0.004 286.2);
+  --app-surface: oklch(36% 0.014 286);
+  --app-muted: oklch(42% 0.016 286.2);
+  --app-border: oklch(54% 0.014 286.1);
+  --app-primary: oklch(70% 0.022 284.9);
+  --app-primary-foreground: oklch(95.6% 0.004 286.2);
+  --app-shadow-color: oklch(18% 0.01 286 / 0.5);
+  --app-shadow: 0 0 6px 0 var(--app-shadow-color);
 }
 
 @layer base {
@@ -48,247 +52,3 @@
   }
 }
 
-.app-layout {
-  grid-template-columns: 150px 1fr;
-  grid-template-rows: 40px 1fr auto;
-  grid-template-areas:
-    'logo header'
-    'aside main'
-    'footer footer';
-
-  @media (min-width: 768px) {
-    grid-template-columns: 240px 1fr;
-    grid-template-rows: 70px 1fr auto;
-    grid-template-areas:
-      'logo header'
-      'aside main'
-      'footer footer';
-  }
-}
-
-#logo {
-  grid-area: logo;
-}
-
-.app-header {
-  grid-area: header;
-}
-
-.app-sidebar {
-  grid-area: aside;
-  @apply border-r border-zinc-400/70 p-3;
-}
-
-.app-nav {
-  @apply flex flex-col gap-2 overflow-auto pt-2;
-
-  @media (min-width: 900px) {
-    @apply h-full flex-col gap-3;
-  }
-}
-
-.app-nav a {
-  @apply border-b border-zinc-700/50 px-4 py-2 text-sm font-medium text-zinc-200 transition-all duration-200 hover:-translate-y-0.5 hover:border-zinc-300/40 hover:bg-zinc-700/80 rounded-b-md hover:text-white;
-}
-
-.app-nav a.active {
-  @apply text-white border-b border-zinc-400 bg-zinc-600 rounded-md;
-}
-
-.app-main {
-  grid-area: main;
-  @apply p-4 text-zinc-700 flex flex-row;
-
-  @media (min-width: 768px) {
-    @apply p-6;
-  }
-}
-
-body[data-theme='light'] .app-footer {
-  @apply border-zinc-400 text-zinc-600;
-}
-
-.app-footer {
-  grid-area: footer;
-  @apply px-4 py-3 text-center text-sm text-zinc-900 dark:text-zinc-100;
-}
-
-body[data-theme='light'] .theme-toggle {
-  @apply border text-zinc-900 bg-zinc-200;
-}
-
-body[data-theme='light'] .theme-toggle:hover {
-  border-color: rgb(20 184 166 / 0.65);
-  background: rgb(244 244 245);
-}
-
-body[data-theme='light'] .app-sidebar {
-  @apply border-zinc-400;
-}
-
-body[data-theme='light'] .app-nav a {
-  @apply border-zinc-200 text-zinc-700 hover:border-teal-300/60 hover:bg-zinc-100 hover:text-zinc-900;
-}
-
-body[data-theme='light'] .app-nav a.active {
-  @apply border-teal-400/70 bg-linear-to-r from-teal-200/70 to-cyan-200/60 text-zinc-900 shadow-sm;
-}
-
-body[data-theme='light'] .app-main {
-  @apply text-zinc-900;
-}
-
-.tasks-section {
-  @apply flex flex-col gap-4;
-}
-
-.tasks-header {
-  @apply flex items-center justify-between gap-3 rounded-2xl border border-zinc-200 bg-white px-4 py-3 shadow-sm;
-}
-
-.tasks-title {
-  @apply text-xl font-semibold tracking-tight text-zinc-900;
-}
-
-.tasks-list {
-  @apply space-y-1;
-}
-
-.tasks-loading {
-  @apply rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm text-zinc-500;
-}
-
-.task-card {
-  @apply rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-teal-300/60 hover:shadow-md;
-  background:
-    radial-gradient(circle at 100% 0%, rgb(20 184 166 / 0.06), transparent 36%),
-    linear-gradient(160deg, rgb(255 255 255), rgb(250 250 250));
-}
-
-.task-card-header {
-  @apply mb-2 flex items-start justify-between gap-3;
-}
-
-.task-card-title {
-  @apply text-base font-semibold text-zinc-900;
-}
-
-.task-card-link {
-  @apply text-zinc-900 no-underline transition-colors duration-200;
-}
-
-.task-card-link:hover {
-  @apply text-teal-700;
-}
-
-.task-status {
-  @apply rounded-full border px-2.5 py-1 text-xs font-semibold uppercase tracking-wide;
-}
-
-.task-status--todo {
-  @apply border-zinc-300 bg-zinc-100 text-zinc-700;
-}
-
-.task-status--active {
-  @apply border-sky-300 bg-sky-100 text-sky-800;
-}
-
-.task-status--completed {
-  @apply border-emerald-300 bg-emerald-100 text-emerald-800;
-}
-
-.task-status--canceled {
-  @apply border-rose-300 bg-rose-100 text-rose-800;
-}
-
-.task-card-description {
-  @apply mb-3 text-sm leading-relaxed text-zinc-600;
-}
-
-.task-card-controls {
-  @apply mb-3 grid gap-1.5;
-}
-
-.task-card-controls label {
-  @apply text-xs font-semibold uppercase tracking-wide text-zinc-500;
-}
-
-.task-card-status-select {
-  min-height: 36px;
-  border: 1px solid rgb(212 212 216);
-  border-radius: 10px;
-  background: rgb(255 255 255);
-  color: rgb(39 39 42);
-  font-size: 0.86rem;
-  font-weight: 600;
-  padding: 0 10px;
-  outline: none;
-  transition: border-color 180ms ease;
-}
-
-.task-card-status-select:focus {
-  border-color: rgb(20 184 166 / 0.75);
-}
-
-.task-card-footer {
-  @apply flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-zinc-200 pt-2 text-xs text-zinc-500;
-}
-
-.task-card-footer strong {
-  @apply text-zinc-700;
-}
-
-.task-modal-overlay {
-  @apply fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/60 p-4 backdrop-blur-sm;
-}
-
-.task-modal {
-  @apply w-full max-w-xl rounded-2xl border border-zinc-700/60 bg-zinc-900 p-5 text-zinc-100 shadow-2xl;
-  background:
-    radial-gradient(circle at 100% 0%, rgb(20 184 166 / 0.2), transparent 46%),
-    radial-gradient(circle at 0% 100%, rgb(14 165 233 / 0.16), transparent 44%), rgb(24 24 27);
-}
-
-.task-modal-header {
-  @apply mb-4 flex items-center justify-between;
-}
-
-.task-modal-title {
-  @apply text-xl font-semibold tracking-tight;
-}
-
-.task-modal-close {
-  @apply rounded-lg border border-zinc-600/70 px-3 py-1.5 text-sm text-zinc-200 transition-colors duration-200 hover:border-zinc-500 hover:bg-zinc-800;
-}
-
-.task-modal-form {
-  @apply flex flex-col gap-3;
-}
-
-.task-modal-field {
-  @apply flex flex-col gap-1.5 text-sm;
-}
-
-.task-modal-input {
-  @apply rounded-xl border border-zinc-700 bg-zinc-800/90 px-3 py-2 text-sm text-zinc-100 outline-none transition-colors duration-200 placeholder:text-zinc-500 focus:border-teal-400;
-}
-
-.task-modal-textarea {
-  @apply min-h-24 resize-y;
-}
-
-.task-modal-grid {
-  @apply grid grid-cols-1 gap-3 sm:grid-cols-2;
-}
-
-.task-modal-actions {
-  @apply mt-2 flex items-center justify-end gap-2 border-t border-zinc-700/70 pt-3;
-}
-
-.task-modal-cancel {
-  @apply rounded-xl border border-zinc-600/70 px-3 py-2 text-sm font-medium text-zinc-200 transition-colors duration-200 hover:bg-zinc-800;
-}
-
-.task-modal-submit {
-  @apply rounded-xl border border-teal-300/70 bg-linear-to-r from-teal-500 to-cyan-500 px-3 py-2 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md;
-}

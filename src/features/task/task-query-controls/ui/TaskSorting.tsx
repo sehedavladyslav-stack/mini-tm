@@ -15,10 +15,12 @@ function TaskSorting() {
 
   return (
     <>
-      <label className="tasks-control-field">
-        <span>Sort by</span>
+      <label className="grid gap-1.5">
+        <span className="text-[0.76rem] font-bold tracking-[0.08em] text-foreground/55 uppercase">
+          Sort by
+        </span>
         <select
-          className="tasks-control-input"
+          className="min-h-10 rounded-xl border border-border bg-background px-3 text-foreground outline-none transition-colors duration-150 focus:border-primary/55"
           value={sortBy}
           onChange={event => {
             const value = event.currentTarget.value;
@@ -36,10 +38,12 @@ function TaskSorting() {
         </select>
       </label>
 
-      <label className="tasks-control-field">
-        <span>Order</span>
+      <label className="grid gap-1.5">
+        <span className="text-[0.76rem] font-bold tracking-[0.08em] text-foreground/55 uppercase">
+          Order
+        </span>
         <select
-          className="tasks-control-input"
+          className="min-h-10 rounded-xl border border-border bg-background px-3 text-foreground outline-none transition-colors duration-150 focus:border-primary/55"
           value={order}
           onChange={event => {
             const value = event.currentTarget.value;

@@ -57,21 +57,27 @@ function TaskQueryControls() {
   const hasActiveFilters = activeFilters.length > 0;
 
   return (
-    <section className="tasks-controls" aria-label="Task filters and sorting">
-      <div className="tasks-controls-main">
-        <div className="tasks-controls-group">
+    <section
+      className="mt-4 flex flex-col items-stretch gap-4 rounded-[18px] border border-border bg-surface px-[18px] py-4 text-foreground shadow-(--app-shadow) md:flex-row md:items-end md:justify-between"
+      aria-label="Task filters and sorting"
+    >
+      <div className="grid flex-1 gap-3">
+        <div className="grid flex-1 grid-cols-1 gap-3 md:grid-cols-[minmax(0,1.5fr)_repeat(3,minmax(0,1fr))]">
           <TaskFilters />
           <TaskSorting />
         </div>
 
         {hasActiveFilters ? (
-          <div className="tasks-active-filters" aria-label="Active filters">
+          <div className="flex flex-wrap gap-2" aria-label="Active filters">
             {activeFilters.map(filter => (
-              <span key={filter.key} className="tasks-active-filter">
-                <span className="tasks-active-filter-label">{filter.label}</span>
+              <span
+                key={filter.key}
+                className="inline-flex min-h-7.5 max-w-full items-center rounded-full border border-primary/30 bg-primary/12 px-2.5 text-[0.82rem] font-semibold text-foreground"
+              >
+                <span className="min-w-0 md:truncate">{filter.label}</span>
                 <button
                   type="button"
-                  className="tasks-active-filter-remove"
+                  className="ml-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary/18 text-[0.8rem] leading-none font-bold text-foreground transition-colors hover:bg-primary/26 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/35"
                   aria-label={`Remove ${filter.label}`}
                   onClick={filter.onRemove}
                 >
