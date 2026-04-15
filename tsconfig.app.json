@@ -31,6 +31,6 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "main.tsx", "prettier.config.ts"],
+  "include": ["src", "main.tsx"],
   "exclude": ["node_modules"]
 }

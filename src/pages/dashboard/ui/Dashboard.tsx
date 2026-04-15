@@ -141,17 +141,24 @@ function Dashboard() {
     background: 'var(--app-primary)',
   };
 
+  const chartTask = tasks.map(t => {
+    return { status: t.status };
+  });
+
   return (
-    <section className="flex flex-wrap gap-4" aria-labelledby="dashboard-title">
-      <Chart />
-      <section className="flex flex-col gap-3">
+    <section
+      className="grid auto-cols-min grid-flow-col grid-cols-2 gap-4"
+      aria-labelledby="dashboard-title"
+    >
+      <Chart tasksQuery={{ tasks: chartTask, isPending, isError }} />
+      <section className="flex flex-col gap-3 rounded-lg shadow-lg">
         <section
-          className="flex flex-col items-stretch gap-3 rounded-md p-4 text-foreground shadow-(--app-shadow) lg:flex-row lg:items-center lg:justify-between"
+          className="flex flex-col items-stretch gap-3 p-4 lg:flex-row lg:items-center lg:justify-between"
           aria-label="Dashboard period filter"
         >
           <div className="grid grid-cols-1 gap-1">
             <h3 className="m-0 text-base font-medium">Time range</h3>
-            <p className="m-0 text-sm text-foreground/70">
+            <p className="text-foreground/70 m-0 text-sm">
               Data is calculated by task updates within the selected period.
             </p>
           </div>
@@ -159,24 +166,21 @@ function Dashboard() {
             {PERIOD_OPTIONS.map(option => (
               <Button
                 key={option.value}
-                type="button"
+                variant={'secondary'}
                 onClick={() => setPeriod(option.value)}
-                className={`${option.value === period ? 'bg-muted shadow-xs' : ''} flex-1 basis-[30%] lg:basis-auto`}
+                className={`${option.value === period ? 'bg-muted/50' : ''} flex-1 basis-[30%] lg:basis-auto`}
               >
                 {option.label}
               </Button>
             ))}
           </div>
         </section>
-        <section
-          className="grid gap-4 rounded-md p-4 text-foreground shadow-(--app-shadow)"
-          aria-labelledby="dashboard-activity-title"
-        >
+        <section className="grid gap-4 rounded-md p-4" aria-labelledby="dashboard-activity-title">
           <div className="flex items-center justify-between gap-2.5">
             <h3 id="dashboard-activity-title" className="m-0 text-[1.05rem]">
               Activity chart
             </h3>
-            <span className="text-[0.85rem] font-bold text-foreground/70">{periodLabel}</span>
+            <span className="text-foreground/70 text-[0.85rem] font-bold">{periodLabel}</span>
           </div>
           <div
             className="grid min-h-47.5 auto-rows-fr grid-cols-[repeat(8,minmax(24px,1fr))] items-end gap-2 overflow-x-auto rounded-[14px] p-3 min-[721px]:grid-cols-[repeat(auto-fit,minmax(22px,1fr))]"
@@ -184,7 +188,7 @@ function Dashboard() {
           >
             {chartPoints.map(point => (
               <div key={point.label} className="grid justify-items-center gap-1.5">
-                <span className="text-[0.72rem] font-bold text-foreground/65">{point.value}</span>
+                <span className="text-foreground/65 text-[0.72rem] font-bold">{point.value}</span>
                 <div
                   className="flex h-27.5 w-full items-end overflow-hidden rounded-full"
                   style={barTrackStyle}
@@ -197,7 +201,7 @@ function Dashboard() {
                     }}
                   />
                 </div>
-                <span className="text-[0.68rem] text-foreground/55">{point.label}</span>
+                <span className="text-foreground/55 text-[0.68rem]">{point.label}</span>
               </div>
             ))}
           </div>

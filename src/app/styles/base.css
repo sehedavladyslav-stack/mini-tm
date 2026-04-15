@@ -1,35 +1,243 @@
-@theme inline {
+/* @theme inline {
   --color-background: var(--app-background);
   --color-foreground: var(--app-foreground);
   --color-surface: var(--app-surface);
   --color-muted: var(--app-muted);
   --color-border: var(--app-border);
+
   --color-primary: var(--app-primary);
   --color-primary-foreground: var(--app-primary-foreground);
+
+  --color-glass-primary: var(--glass-primary);
+
+  --color-success: var(--status-success);
+  --color-warning: var(--status-warning);
+  --color-danger: var(--status-danger);
+  --color-pending: var(--status-pending);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-shadow: var(--app-shadow);
 }
 
 :root {
   --app-background: oklch(97.3% 0.004 286.2);
   --app-foreground: oklch(27% 0.014 281.5);
+
   --app-surface: oklch(99.1% 0.002 286.1);
   --app-muted: oklch(94.2% 0.008 286.4);
   --app-border: oklch(82% 0.012 286.1);
-  --app-primary: oklch(78% 0.02 284.8);
-  --app-primary-foreground: oklch(27% 0.014 281.5);
+
+  --app-primary: oklch(62% 0.16 264);
+  --app-primary-foreground: oklch(98% 0.002 286);
+
+  --glass-primary: oklch(62% 0.16 264 / 0.25);
+
+  --status-success: oklch(62% 0.14 145);
+  --status-warning: oklch(70% 0.14 85);
+  --status-danger: oklch(62% 0.18 25);
+  --status-pending: oklch(70% 0.02 286);
+
+  --chart-1: oklch(65% 0.14 260);
+  --chart-2: oklch(65% 0.14 145);
+  --chart-3: oklch(70% 0.14 85);
+  --chart-4: oklch(65% 0.14 25);
+  --chart-5: oklch(65% 0.14 310);
+
   --app-shadow-color: oklch(82% 0.012 286.1 / 0.45);
   --app-shadow: 0 0 6px 0 var(--app-shadow-color);
 }
 
 [data-theme='dark'] {
-  --app-background: oklch(32% 0.012 286.1);
-  --app-foreground: oklch(95.6% 0.004 286.2);
-  --app-surface: oklch(36% 0.014 286);
-  --app-muted: oklch(42% 0.016 286.2);
-  --app-border: oklch(54% 0.014 286.1);
-  --app-primary: oklch(70% 0.022 284.9);
-  --app-primary-foreground: oklch(95.6% 0.004 286.2);
-  --app-shadow-color: oklch(18% 0.01 286 / 0.5);
-  --app-shadow: 0 0 6px 0 var(--app-shadow-color);
+  --app-background: oklch(18% 0.01 286);
+  --app-foreground: oklch(96% 0.003 286);
+
+  --app-surface: oklch(22% 0.012 286);
+  --app-muted: oklch(28% 0.014 286);
+  --app-border: oklch(38% 0.012 286);
+
+  --app-primary: oklch(68% 0.14 264);
+  --app-primary-foreground: oklch(98% 0.002 286);
+
+  --glass-primary: oklch(68% 0.14 264 / 0.18);
+
+  --status-success: oklch(68% 0.12 145);
+  --status-warning: oklch(72% 0.12 85);
+  --status-danger: oklch(66% 0.16 25);
+  --status-pending: oklch(60% 0.02 286);
+
+  --chart-1: oklch(70% 0.13 260);
+  --chart-2: oklch(70% 0.13 145);
+  --chart-3: oklch(74% 0.13 85);
+  --chart-4: oklch(70% 0.13 25);
+  --chart-5: oklch(70% 0.13 310);
+
+  --app-shadow-color: oklch(0% 0 0 / 0.6);
+  --app-shadow: 0 4px 20px 0 var(--app-shadow-color);
+} */
+
+@theme inline {
+  /* Base semantic */
+  --color-background: var(--app-background);
+  --color-foreground: var(--app-foreground);
+  --color-surface: var(--app-surface);
+  --color-surface-2: var(--app-surface-2);
+  --color-surface-3: var(--app-surface-3);
+  --color-muted: var(--app-muted);
+  --color-border: var(--app-border);
+
+  /* Text */
+  --color-text-primary: var(--app-foreground);
+  --color-text-secondary: var(--app-muted);
+  --color-text-tertiary: var(--app-muted);
+  --color-text-inverse: var(--app-background);
+  --color-text-disabled: var(--app-border);
+
+  /* Primary */
+  --color-primary: var(--app-primary);
+  --color-primary-hover: var(--app-primary-hover);
+  --color-primary-active: var(--app-primary-active);
+  --color-primary-disabled: var(--app-primary-disabled);
+  --color-primary-foreground: var(--app-primary-foreground);
+
+  /* Secondary */
+  --color-secondary: var(--app-secondary);
+  --color-secondary-hover: var(--app-secondary-hover);
+  --color-secondary-active: var(--app-secondary-active);
+  --color-secondary-foreground: var(--app-secondary-foreground);
+
+  /* Status */
+  --color-success: var(--status-success);
+  --color-success-bg: var(--status-success-bg);
+  --color-success-foreground: var(--status-success);
+
+  --color-warning: var(--status-warning);
+  --color-warning-bg: var(--status-warning-bg);
+  --color-warning-foreground: var(--status-warning);
+
+  --color-danger: var(--status-danger);
+  --color-danger-bg: var(--status-danger-bg);
+  --color-danger-foreground: var(--status-danger);
+
+  /* Input */
+  --color-input-bg: var(--app-surface);
+  --color-input-border: var(--app-border);
+  --color-input-border-focus: var(--app-primary);
+  --color-input-placeholder: var(--app-muted);
+
+  /* Navigation */
+  --color-tab: var(--app-muted);
+  --color-tab-hover: var(--app-foreground);
+  --color-tab-active: var(--app-foreground);
+  --color-tab-border: var(--app-primary);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Focus */
+  --color-focus-ring: var(--app-primary);
+
+  /* Shadows */
+  --shadow-sm: var(--app-shadow-sm);
+  --shadow-md: var(--app-shadow-md);
+  --shadow-lg: var(--app-shadow-lg);
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+}
+
+:root {
+  --app-background: oklch(97% 0.004 286);
+  --app-foreground: oklch(27% 0.014 281);
+
+  --app-surface: oklch(99% 0.002 286);
+  --app-surface-2: oklch(96% 0.004 286);
+  --app-surface-3: oklch(93% 0.006 286);
+
+  --app-muted: oklch(92% 0.008 286);
+  --app-border: oklch(82% 0.012 286);
+
+  --app-primary: oklch(62% 0.16 264);
+  --app-primary-hover: oklch(58% 0.16 264);
+  --app-primary-active: oklch(64% 0.16 264);
+  --app-primary-disabled: oklch(15.434% 0.00002 271.152);
+  --app-primary-foreground: oklch(98% 0.002 286);
+
+  --app-secondary: oklch(90% 0.01 286);
+  --app-secondary-hover: oklch(86% 0.01 286);
+  --app-secondary-active: oklch(82% 0.01 286);
+  --app-secondary-foreground: oklch(30% 0.01 286);
+
+  --status-success: oklch(62% 0.14 145);
+  --status-success-bg: oklch(95% 0.04 145);
+
+  --status-warning: oklch(70% 0.14 85);
+  --status-warning-bg: oklch(96% 0.04 85);
+
+  --status-danger: oklch(62% 0.18 25);
+  --status-danger-bg: oklch(95% 0.05 25);
+
+  --chart-1: oklch(65% 0.14 260);
+  --chart-2: oklch(65% 0.14 145);
+  --chart-3: oklch(70% 0.14 85);
+  --chart-4: oklch(65% 0.14 25);
+  --chart-5: oklch(65% 0.14 310);
+
+  --app-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --app-shadow-md: 0 4px 8px rgba(0, 0, 0, 0.08);
+  --app-shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme='dark'] {
+  --app-background: oklch(18% 0.01 286);
+  --app-foreground: oklch(96% 0.003 286);
+
+  --app-surface: oklch(22% 0.012 286);
+  --app-surface-2: oklch(26% 0.014 286);
+  --app-surface-3: oklch(30% 0.016 286);
+
+  --app-muted: oklch(28% 0.014 286);
+  --app-border: oklch(38% 0.012 286);
+
+  --app-primary: oklch(68% 0.14 264);
+  --app-primary-hover: oklch(72% 0.14 264);
+  --app-primary-active: oklch(64% 0.14 264);
+  --app-primary-disabled: oklch(40% 0.02 264);
+  --app-primary-foreground: oklch(98% 0.002 286);
+
+  --app-secondary: oklch(30% 0.01 286);
+  --app-secondary-hover: oklch(34% 0.01 286);
+  --app-secondary-active: oklch(38% 0.01 286);
+  --app-secondary-foreground: oklch(90% 0.01 286);
+
+  --status-success: oklch(68% 0.12 145);
+  --status-success-bg: oklch(30% 0.04 145);
+
+  --status-warning: oklch(72% 0.12 85);
+  --status-warning-bg: oklch(32% 0.04 85);
+
+  --status-danger: oklch(66% 0.16 25);
+  --status-danger-bg: oklch(30% 0.05 25);
+
+  --chart-1: oklch(70% 0.13 260);
+  --chart-2: oklch(70% 0.13 145);
+  --chart-3: oklch(74% 0.13 85);
+  --chart-4: oklch(70% 0.13 25);
+  --chart-5: oklch(70% 0.13 310);
+
+  --app-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --app-shadow-md: 0 4px 10px rgba(0, 0, 0, 0.5);
+  --app-shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.6);
 }
 
 @layer base {
@@ -40,7 +248,7 @@
   }
 
   body {
-    @apply min-h-dvh bg-background text-foreground;
+    @apply bg-background text-foreground min-h-dvh;
   }
 
   button {
@@ -51,4 +259,3 @@
     @apply text-inherit no-underline;
   }
 }
-

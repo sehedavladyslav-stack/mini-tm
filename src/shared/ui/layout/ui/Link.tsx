@@ -10,8 +10,8 @@ export function Link({ to, children }: LinkProps) {
   return (
     <NavLink
       className={({ isActive }) =>
-        'rounded-md px-3 py-2 text-sm font-medium text-foreground shadow-(--app-shadow) transition-colors hover:bg-muted/70 md:text-base ' +
-        (isActive ? ' bg-muted text-primary-foreground' : '')
+        'active:bg-tab hover:bg-muted/60 rounded-md p-2 pl-4 text-sm font-medium transition-colors md:text-base' +
+        (isActive ? ' bg-muted text-foreground' : '')
       }
       to={to}
     >

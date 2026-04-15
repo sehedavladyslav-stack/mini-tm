@@ -6,21 +6,43 @@ export const buttonVariants = cva(
     'rounded-lg font-semibold tracking-[-0.01em] outline-none',
     'transition-[background-color,transform,box-shadow,border-color,color] duration-150',
     'disabled:pointer-events-none disabled:opacity-50',
-    'focus-visible:ring-2 focus-visible:ring-primary/40',
+    'focus-visible:ring-2 focus-visible:ring-focus-ring/40',
     'focus-visible:ring-offset-2 focus-visible:ring-offset-background',
-    'shadow-(--app-shadow)',
+    'shadow-sm',
   ],
   {
     variants: {
       variant: {
-        primary:
-          'border border-border bg-transparent text-primary-foreground hover:bg-muted/70 active:translate-y-px active:shadow-none active:brightness-95',
-        secondary:
-          'border border-border bg-surface/80 text-foreground hover:bg-muted active:translate-y-px active:shadow-none active:brightness-95',
-        ghost:
-          'bg-transparent text-foreground hover:bg-muted/80 active:translate-y-px active:shadow-none active:brightness-95',
-        danger:
-          'bg-red-600 text-white hover:bg-red-500 active:translate-y-px active:shadow-none active:inset-shadow-sm active:inset-shadow-black/20 active:brightness-95',
+        primary: [
+          'border border-border',
+          'bg-primary text-primary-foreground',
+          'hover:bg-primary-hover',
+          'active:bg-primary-active',
+          'active:translate-y-px active:shadow-none',
+        ],
+
+        secondary: [
+          'border border-border',
+          'bg-secondary text-secondary-foreground',
+          'hover:bg-secondary-hover',
+          'active:bg-secondary-active',
+          'active:translate-y-px active:shadow-none',
+        ],
+
+        ghost: [
+          'bg-transparent text-foreground',
+          'hover:bg-surface-2',
+          'active:bg-surface-3',
+          'active:translate-y-px active:shadow-none',
+        ],
+
+        danger: [
+          'border border-border',
+          'bg-danger text-danger-foreground',
+          'hover:bg-danger/90',
+          'active:bg-danger/80',
+          'active:translate-y-px active:shadow-none',
+        ],
       },
 
       size: {
@@ -28,11 +50,13 @@ export const buttonVariants = cva(
         md: 'h-10 px-4 text-sm',
         lg: 'h-11 px-5 text-base',
       },
+
       fullWidth: {
         true: 'w-full',
         false: '',
       },
     },
+
     defaultVariants: {
       variant: 'primary',
       size: 'md',

@@ -41,7 +41,7 @@ export default defineConfig([
       ],
     },
     languageOptions: {
-      ecmaVersion: 2020,
+      ecmaVersion: 'latest',
       globals: globals.browser,
       parser: typescriptParser,
       parserOptions: {

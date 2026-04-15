@@ -5,8 +5,8 @@ const LOGO_ALT = 'Task Manager';
 
 function Logo(): JSX.Element {
   return (
-    <div className="col-start-1 text-center flex">
-      <img className="relative mx-auto w-[clamp(40px,8vw,78px)]" src={favicon} alt={LOGO_ALT} />
+    <div className="border-border col-start-1 flex justify-center border-r-2 text-center shadow-sm">
+      <img className="inline max-w-none" src={favicon} alt={LOGO_ALT} />
     </div>
   );
 }

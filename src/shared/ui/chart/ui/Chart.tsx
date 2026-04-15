@@ -1,113 +1,149 @@
-export function Chart() {
+import { Loader } from '@shared/index';
+
+type StatusKey = 'todo' | 'active' | 'completed' | 'canceled';
+
+const STATUS_META: Record<
+  StatusKey,
+  {
+    label: string;
+    barClassName: string;
+    badgeClassName: string;
+    textClassName: string;
+  }
+> = {
+  todo: {
+    label: 'To do',
+    barClassName: 'bg-foreground/28',
+    badgeClassName: 'bg-muted text-foreground',
+    textClassName: 'text-foreground',
+  },
+  active: {
+    label: 'In progress',
+    barClassName: 'bg-primary/75',
+    badgeClassName: 'bg-primary/14 text-primary-foreground',
+    textClassName: 'text-foreground',
+  },
+  completed: {
+    label: 'Done',
+    barClassName: 'bg-primary',
+    badgeClassName: 'bg-primary/18 text-primary-foreground',
+    textClassName: 'text-foreground',
+  },
+  canceled: {
+    label: 'Canceled',
+    barClassName: 'bg-foreground/18',
+    badgeClassName: 'bg-foreground/8 text-foreground/70',
+    textClassName: 'text-foreground/70',
+  },
+};
+
+type PropsChart = {
+  tasksQuery: {
+    tasks: { status: StatusKey }[];
+    isPending: boolean;
+    isError: boolean;
+  };
+};
+
+export function Chart({ tasksQuery }: PropsChart) {
+  const { tasks, isPending, isError } = tasksQuery;
+
+  if (isPending) {
+    return <Loader message="Loading overview" />;
+  }
+
+  if (isError) {
+    throw new Error('Failed to load overview');
+  }
+
+  const totals = {
+    todo: tasks.filter(task => task.status === 'todo').length,
+    active: tasks.filter(task => task.status === 'active').length,
+    completed: tasks.filter(task => task.status === 'completed').length,
+    canceled: tasks.filter(task => task.status === 'canceled').length,
+  };
+
+  const totalTasks = tasks.length;
+  const completionRate = totalTasks > 0 ? Math.round((totals.completed / totalTasks) * 100) : 0;
+  const activeRate = totalTasks > 0 ? Math.round((totals.active / totalTasks) * 100) : 0;
+  const statusOrder: StatusKey[] = ['todo', 'active', 'completed', 'canceled'];
+
   return (
-    <section>
-      <div className="max-w-sm w-full border rounded-2xl p-4 md:p-6">
-        <div className="flex justify-between mb-4 md:mb-6">
-          <div className="flex items-center">
-            <div className="flex justify-center items-center">
-              <h5 className="text-xl font-semibold text-heading me-1">Your team's progress</h5>
-            </div>
+    <section
+      className="border-border bg-surface text-foreground w-full max-w-sm rounded-3xl border p-5 shadow-(--app-shadow)"
+      aria-labelledby="chart-title"
+    >
+      <div className="flex items-start justify-between gap-3">
+        <div className="grid gap-1">
+          <p className="text-foreground/55 m-0 text-[0.72rem] font-bold tracking-[0.14em] uppercase">
+            Snapshot
+          </p>
+          <h3 id="chart-title" className="m-0 text-[1.25rem] font-semibold tracking-[-0.02em]">
+            Team progress
+          </h3>
+          <p className="text-foreground/68 m-0 max-w-[24ch] text-sm leading-5">
+            A quick read on current workload and completed delivery.
+          </p>
+        </div>
+        <div className="border-border bg-background text-foreground rounded-full border px-3 py-1 text-sm font-semibold">
+          {totalTasks} tasks
+        </div>
+      </div>
+
+      <div className="border-border bg-background mt-5 rounded-[20px] border p-4">
+        <div className="flex items-end justify-between gap-3">
+          <div>
+            <p className="text-foreground/60 m-0 text-sm">Completion</p>
+            <p className="m-0 text-[2rem] leading-none font-black tracking-[-0.03em]">
+              {completionRate}%
+            </p>
+          </div>
+          <div className="text-right">
+            <p className="text-foreground/60 m-0 text-sm">In progress</p>
+            <p className="m-0 text-lg font-semibold">{activeRate}%</p>
           </div>
         </div>
 
-        <div className="bg-neutral-secondary-medium border border-light-medium p-3 rounded-base">
-          <div className="grid grid-cols-3 gap-3 mb-3">
-            <dl className="bg-brand-softer border border-brand-subtle text-fg-brand-strong rounded-base flex flex-col items-center justify-center h-16">
-              <dt className="w-8 h-8 rounded-full bg-brand-soft text-fg-brand-strong text-sm font-medium flex items-center justify-center mb-1">
-                12
-              </dt>
-              <dd className="text-fg-brand text-sm font-medium">To do</dd>
-            </dl>
-            <dl className="bg-warning-soft border border-warning-subtle text-fg-warning rounded-base flex flex-col items-center justify-center h-16">
-              <dt className="w-8 h-8 rounded-full bg-warning-medium text-fg-warning text-sm font-medium flex items-center justify-center mb-1">
-                23
-              </dt>
-              <dd className="text-fg-warning text-sm font-medium">In progress</dd>
-            </dl>
-            <dl className="bg-success-soft border border-success-subtle text-fg-success-strong rounded-base flex flex-col items-center justify-center h-16">
-              <dt className="w-8 h-8 rounded-full bg-success-medium text-fg-success-strong text-sm font-medium flex items-center justify-center mb-1">
-                64
-              </dt>
-              <dd className="text-fg-success-strong text-sm font-medium">Done</dd>
-            </dl>
-          </div>
+        <div className="bg-muted mt-4 h-3 overflow-hidden rounded-full" aria-hidden="true">
+          <div
+            className="bg-primary h-full rounded-full transition-[width] duration-300"
+            style={{ width: `${completionRate}%` }}
+          />
         </div>
+      </div>
 
-        <div className="py-6" id="radial-chart"></div>
+      <div className="mt-5 grid gap-3">
+        {statusOrder.map(status => {
+          const count = totals[status];
+          const share = totalTasks > 0 ? Math.round((count / totalTasks) * 100) : 0;
+          const meta = STATUS_META[status];
 
-        <div className="grid grid-cols-1 items-center border-light border-t justify-between">
-          <div className="flex justify-between items-center pt-4 md:pt-6">
-            <button
-              id="dropdownLastDays6Button"
-              data-dropdown-toggle="LastDays6dropdown"
-              data-dropdown-placement="bottom"
-              className="text-sm font-medium text-body hover:text-heading text-center inline-flex items-center"
-              type="button"
-            >
-              Last 7 days
-              <svg
-                className="w-4 h-4 ms-1.5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="m19 9-7 7-7-7"
-                />
-              </svg>
-            </button>
-
+          return (
             <div
-              id="LastDaysdropdown"
-              className="z-10 hidden bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-44"
+              key={status}
+              className="border-border bg-background rounded-[18px] border px-3.5 py-3"
             >
-              <ul
-                className="p-2 text-sm text-body font-medium"
-                aria-labelledby="dropdownLastDaysButton"
-              >
-                <li>
-                  <a
-                    href="#"
-                    className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded"
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2.5">
+                  <span
+                    className={`rounded-full px-2.5 py-1 text-xs font-semibold ${meta.badgeClassName}`}
                   >
-                    Yesterday
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded"
-                  >
-                    Today
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded"
-                  >
-                    Last 7 days
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded"
-                  >
-                    Last 30 days
-                  </a>
-                </li>
-              </ul>
+                    {meta.label}
+                  </span>
+                  <span className={`text-sm ${meta.textClassName}`}>{count} items</span>
+                </div>
+                <span className="text-foreground/65 text-sm font-semibold">{share}%</span>
+              </div>
+
+              <div className="bg-muted mt-3 h-2 overflow-hidden rounded-full">
+                <div
+                  className={`h-full rounded-full transition-[width] duration-300 ${meta.barClassName}`}
+                  style={{ width: `${share}%` }}
+                />
+              </div>
             </div>
-          </div>
-        </div>
+          );
+        })}
       </div>
     </section>
   );
