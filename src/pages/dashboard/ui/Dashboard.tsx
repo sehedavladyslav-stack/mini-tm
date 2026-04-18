@@ -147,11 +147,11 @@ function Dashboard() {
 
   return (
     <section
-      className="grid auto-cols-min grid-flow-col grid-cols-2 gap-4"
+      className="grid grid-cols-1 gap-4 md:grid-cols-[1fr_2fr]"
       aria-labelledby="dashboard-title"
     >
       <Chart tasksQuery={{ tasks: chartTask, isPending, isError }} />
-      <section className="flex flex-col gap-3 rounded-lg shadow-lg">
+      <section className="border-border bg-surface text-foreground flex flex-col gap-3 rounded-3xl border p-2 shadow-(--app-shadow)">
         <section
           className="flex flex-col items-stretch gap-3 p-4 lg:flex-row lg:items-center lg:justify-between"
           aria-label="Dashboard period filter"
@@ -175,7 +175,10 @@ function Dashboard() {
             ))}
           </div>
         </section>
-        <section className="grid gap-4 rounded-md p-4" aria-labelledby="dashboard-activity-title">
+        <section
+          className="grid grid-cols-1 gap-4 rounded-md p-4"
+          aria-labelledby="dashboard-activity-title"
+        >
           <div className="flex items-center justify-between gap-2.5">
             <h3 id="dashboard-activity-title" className="m-0 text-[1.05rem]">
               Activity chart
@@ -183,7 +186,7 @@ function Dashboard() {
             <span className="text-foreground/70 text-[0.85rem] font-bold">{periodLabel}</span>
           </div>
           <div
-            className="grid min-h-47.5 auto-rows-fr grid-cols-[repeat(8,minmax(24px,1fr))] items-end gap-2 overflow-x-auto rounded-[14px] p-3 min-[721px]:grid-cols-[repeat(auto-fit,minmax(22px,1fr))]"
+            className="grid min-h-47.5 auto-rows-fr grid-cols-[repeat(6,minmax(14px,1fr))] items-end gap-2 rounded-[14px] p-3 min-[721px]:grid-cols-[repeat(auto-fit,minmax(22px,1fr))]"
             style={chartStyle}
           >
             {chartPoints.map(point => (

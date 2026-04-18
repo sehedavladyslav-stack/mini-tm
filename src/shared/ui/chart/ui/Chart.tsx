@@ -1,4 +1,4 @@
-import { Loader } from '@shared/index';
+import { Button, Loader } from '@shared/index';
 
 type StatusKey = 'todo' | 'active' | 'completed' | 'canceled';
 
@@ -13,26 +13,26 @@ const STATUS_META: Record<
 > = {
   todo: {
     label: 'To do',
-    barClassName: 'bg-foreground/28',
+    barClassName: 'bg-foreground/58',
     badgeClassName: 'bg-muted text-foreground',
     textClassName: 'text-foreground',
   },
   active: {
     label: 'In progress',
     barClassName: 'bg-primary/75',
-    badgeClassName: 'bg-primary/14 text-primary-foreground',
+    badgeClassName: 'bg-primary/34 text-primary-foreground',
     textClassName: 'text-foreground',
   },
   completed: {
     label: 'Done',
-    barClassName: 'bg-primary',
-    badgeClassName: 'bg-primary/18 text-primary-foreground',
+    barClassName: 'bg-chart-2',
+    badgeClassName: 'bg-primary/48 text-primary-foreground',
     textClassName: 'text-foreground',
   },
   canceled: {
     label: 'Canceled',
-    barClassName: 'bg-foreground/18',
-    badgeClassName: 'bg-foreground/8 text-foreground/70',
+    barClassName: 'bg-danger',
+    badgeClassName: 'bg-foreground/18 text-foreground/70',
     textClassName: 'text-foreground/70',
   },
 };
@@ -70,10 +70,10 @@ export function Chart({ tasksQuery }: PropsChart) {
 
   return (
     <section
-      className="border-border bg-surface text-foreground w-full max-w-sm rounded-3xl border p-5 shadow-(--app-shadow)"
+      className="border-border bg-surface text-foreground w-full max-w-sm min-w-fit rounded-3xl border p-5 shadow-(--app-shadow)"
       aria-labelledby="chart-title"
     >
-      <div className="flex items-start justify-between gap-3">
+      <div className="flex flex-col items-start justify-between gap-3 md:flex-row">
         <div className="grid gap-1">
           <p className="text-foreground/55 m-0 text-[0.72rem] font-bold tracking-[0.14em] uppercase">
             Snapshot
@@ -85,7 +85,7 @@ export function Chart({ tasksQuery }: PropsChart) {
             A quick read on current workload and completed delivery.
           </p>
         </div>
-        <div className="border-border bg-background text-foreground rounded-full border px-3 py-1 text-sm font-semibold">
+        <div className="border-border bg-background text-foreground rounded-md border px-3 py-1 text-sm font-semibold">
           {totalTasks} tasks
         </div>
       </div>
@@ -119,14 +119,11 @@ export function Chart({ tasksQuery }: PropsChart) {
           const meta = STATUS_META[status];
 
           return (
-            <div
-              key={status}
-              className="border-border bg-background rounded-[18px] border px-3.5 py-3"
-            >
+            <div key={status} className="border-border bg-background rounded-md border px-3.5 py-3">
               <div className="flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2.5">
                   <span
-                    className={`rounded-full px-2.5 py-1 text-xs font-semibold ${meta.badgeClassName}`}
+                    className={`rounded-md px-2.5 py-1 text-xs font-semibold ${meta.badgeClassName}`}
                   >
                     {meta.label}
                   </span>
@@ -134,7 +131,6 @@ export function Chart({ tasksQuery }: PropsChart) {
                 </div>
                 <span className="text-foreground/65 text-sm font-semibold">{share}%</span>
               </div>
-
               <div className="bg-muted mt-3 h-2 overflow-hidden rounded-full">
                 <div
                   className={`h-full rounded-full transition-[width] duration-300 ${meta.barClassName}`}

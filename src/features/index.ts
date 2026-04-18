@@ -1,6 +1,8 @@
 export {
   DeleteTaskButton,
   UpdateTaskSelect,
+  UpdateTaskStatusModal,
+  useUpdateTaskStatusModalStore,
   CreateTaskModal,
   useCreateTaskModalStore,
 } from './task';

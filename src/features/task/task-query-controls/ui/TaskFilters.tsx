@@ -26,12 +26,12 @@ function TaskFilters() {
 
   return (
     <>
-      <label className="grid min-w-0 gap-1.5">
-        <span className="text-[0.76rem] font-bold tracking-[0.08em] text-foreground/55 uppercase">
+      <label className="flex min-w-0 flex-1 flex-col gap-1.5">
+        <span className="text-foreground/55 text-xs font-bold tracking-[0.08em] uppercase">
           Search
         </span>
         <input
-          className="min-h-10 rounded-xl border border-border bg-background px-3 text-foreground outline-none transition-colors duration-150 placeholder:text-foreground/45 focus:border-primary/55"
+          className="border-border bg-background text-foreground placeholder:text-foreground/45 focus:border-primary/55 min-h-10 truncate rounded-xl border px-3 transition-colors duration-150 outline-none"
           type="search"
           value={inputValue}
           placeholder="Search by title or description"
@@ -39,12 +39,12 @@ function TaskFilters() {
         />
       </label>
 
-      <label className="grid gap-1.5">
-        <span className="text-[0.76rem] font-bold tracking-[0.08em] text-foreground/55 uppercase">
+      <label className="flex flex-1 flex-col gap-1.5 md:gap-2">
+        <span className="text-foreground/55 text-xs font-bold tracking-[0.08em] uppercase">
           Status
         </span>
         <select
-          className="min-h-10 rounded-xl border border-border bg-background px-3 text-foreground outline-none transition-colors duration-150 focus:border-primary/55"
+          className="border-border bg-background text-foreground focus:border-primary/55 min-h-10 truncate rounded-xl border px-3 transition-colors duration-150 outline-none"
           value={status}
           onChange={event => {
             const value = event.currentTarget.value;

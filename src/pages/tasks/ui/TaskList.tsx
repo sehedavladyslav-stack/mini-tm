@@ -14,11 +14,10 @@ function TaskList() {
   useTaskQueryUrlSync();
   const { tasks, isPending, isError } = useTasksQuery();
   const statCardClassName =
-    'relative grid gap-1.5 rounded-[20px] border border-border bg-surface px-4 py-4 shadow-(--app-shadow)';
+    'relative grid gap-1.5 rounded-md border border-border bg-surface px-4 py-4 shadow-(--app-shadow)';
   const statLabelClassName =
     'text-[0.72rem] font-bold tracking-[0.14em] text-foreground/55 uppercase';
-  const statValueClassName =
-    'text-[clamp(1.25rem,2vw,1.7rem)] font-extrabold text-foreground';
+  const statValueClassName = 'text-[clamp(1.25rem,2vw,1.7rem)] font-extrabold text-foreground';
   const emptyStateClassName =
     'mt-4 grid gap-2.5 rounded-[22px] border border-dashed border-border bg-surface px-6 py-7 text-center shadow-(--app-shadow)';
 
@@ -40,21 +39,15 @@ function TaskList() {
       className="flex flex-col gap-4 font-['Segoe_UI_Variable_Display','Trebuchet_MS','Verdana','Tahoma',sans-serif]"
       aria-labelledby="tasks-heading"
     >
-      <div
-        className="relative flex flex-col items-start gap-3 overflow-hidden rounded-[22px] border border-border bg-surface px-5 py-4 text-foreground shadow-(--app-shadow) md:flex-row md:items-center md:justify-between"
-        id="tasks-header"
-      >
+      <div className="border-border bg-surface text-foreground relative flex flex-col items-start gap-3 overflow-hidden rounded-md border px-5 py-4 shadow-(--app-shadow) md:flex-row md:items-center md:justify-between">
         <div className="grid gap-2">
-          <p className="m-0 text-[0.72rem] font-bold tracking-[0.16em] text-foreground/55 uppercase">
+          <p className="text-foreground/55 m-0 text-xs font-bold tracking-widest uppercase">
             Workspace
           </p>
-          <h2
-            className="m-0 text-[clamp(1.5rem,2.3vw,2.1rem)] tracking-[-0.02em] text-foreground"
-            id="tasks-heading"
-          >
+          <h2 className="text-foreground m-0 text-[clamp(1.5rem,2.3vw,2.1rem)] tracking-tight">
             Task board
           </h2>
-          <p className="m-0 max-w-[54ch] leading-[1.55] text-foreground/68">
+          <p className="text-foreground/68 m-0 max-w-[54ch] leading-[1.55]">
             Keep priorities visible and ship work every day.
           </p>
         </div>
@@ -68,36 +61,20 @@ function TaskList() {
         aria-label="Task statistics"
       >
         <li className={statCardClassName}>
-          <span className={statLabelClassName}>
-            Total
-          </span>
-          <span className={statValueClassName}>
-            {tasks.length}
-          </span>
+          <span className={statLabelClassName}>Total</span>
+          <span className={statValueClassName}>{tasks.length}</span>
         </li>
         <li className={statCardClassName}>
-          <span className={statLabelClassName}>
-            In progress
-          </span>
-          <span className={statValueClassName}>
-            {activeTasks}
-          </span>
+          <span className={statLabelClassName}>In progress</span>
+          <span className={statValueClassName}>{activeTasks}</span>
         </li>
         <li className={statCardClassName}>
-          <span className={statLabelClassName}>
-            To do
-          </span>
-          <span className={statValueClassName}>
-            {todoTasks}
-          </span>
+          <span className={statLabelClassName}>To do</span>
+          <span className={statValueClassName}>{todoTasks}</span>
         </li>
         <li className={statCardClassName}>
-          <span className={statLabelClassName}>
-            Done
-          </span>
-          <span className={statValueClassName}>
-            {completedTasks}
-          </span>
+          <span className={statLabelClassName}>Done</span>
+          <span className={statValueClassName}>{completedTasks}</span>
         </li>
       </ul>
 
@@ -105,8 +82,10 @@ function TaskList() {
 
       {tasks.length === 0 ? (
         <div className={emptyStateClassName}>
-          <h3 className="m-0 text-[1.2rem] tracking-[-0.01em] text-foreground">No tasks yet</h3>
-          <p className="m-0 text-foreground/68">Create your first task to start tracking progress.</p>
+          <h3 className="text-foreground m-0 text-[1.2rem] tracking-[-0.01em]">No tasks yet</h3>
+          <p className="text-foreground/68 m-0">
+            Create your first task to start tracking progress.
+          </p>
           <Button
             className="w-full justify-self-center md:w-auto"
             type="button"
@@ -116,7 +95,7 @@ function TaskList() {
           </Button>
         </div>
       ) : visibleTasks.length > 0 ? (
-        <ul className="mt-4 grid gap-4">
+        <ul className="mt-4 grid grid-cols-[1fr_1fr_1fr] gap-4">
           {visibleTasks.map(t => (
             <li key={t.id} className="translate-y-0 opacity-100 transition-transform duration-200">
               <TaskItem task={t} href={`/tasks/${t.id}`} />
@@ -125,10 +104,8 @@ function TaskList() {
         </ul>
       ) : (
         <div className={emptyStateClassName}>
-          <h3 className="m-0 text-[1.2rem] tracking-[-0.01em] text-foreground">
-            No matching tasks
-          </h3>
-          <p className="m-0 text-foreground/68">
+          <h3 className="text-foreground m-0 text-base -tracking-wide">No matching tasks</h3>
+          <p className="text-foreground/68 m-0">
             Try changing the current filters or sorting settings.
           </p>
         </div>

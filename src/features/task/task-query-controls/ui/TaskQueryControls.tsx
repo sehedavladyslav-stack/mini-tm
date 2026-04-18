@@ -58,11 +58,11 @@ function TaskQueryControls() {
 
   return (
     <section
-      className="mt-4 flex flex-col items-stretch gap-4 rounded-[18px] border border-border bg-surface px-[18px] py-4 text-foreground shadow-(--app-shadow) md:flex-row md:items-end md:justify-between"
+      className="border-border bg-surface text-foreground mt-4 flex flex-col items-stretch gap-4 rounded-md border px-5 py-4 shadow-(--app-shadow) md:flex-row md:items-end md:justify-between"
       aria-label="Task filters and sorting"
     >
-      <div className="grid flex-1 gap-3">
-        <div className="grid flex-1 grid-cols-1 gap-3 md:grid-cols-[minmax(0,1.5fr)_repeat(3,minmax(0,1fr))]">
+      <div className="flex flex-1 flex-col gap-3">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-[minmax(0,1.5fr)_repeat(3,minmax(0,1fr))]">
           <TaskFilters />
           <TaskSorting />
         </div>
@@ -72,12 +72,12 @@ function TaskQueryControls() {
             {activeFilters.map(filter => (
               <span
                 key={filter.key}
-                className="inline-flex min-h-7.5 max-w-full items-center rounded-full border border-primary/30 bg-primary/12 px-2.5 text-[0.82rem] font-semibold text-foreground"
+                className="border-primary/30 bg-primary/12 text-foreground inline-flex min-h-7.5 max-w-full items-center rounded-full border px-2.5 text-[0.82rem] font-semibold"
               >
                 <span className="min-w-0 md:truncate">{filter.label}</span>
                 <button
                   type="button"
-                  className="ml-2 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary/18 text-[0.8rem] leading-none font-bold text-foreground transition-colors hover:bg-primary/26 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/35"
+                  className="bg-primary/18 text-foreground hover:bg-primary/26 focus-visible:outline-primary/35 ml-2 inline-flex h-5 w-5 items-center justify-center rounded-full text-[0.8rem] leading-none font-bold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2"
                   aria-label={`Remove ${filter.label}`}
                   onClick={filter.onRemove}
                 >
@@ -88,7 +88,13 @@ function TaskQueryControls() {
           </div>
         ) : null}
       </div>
-      <Button type="button" variant="ghost" size="sm" onClick={reset} disabled={!hasActiveFilters}>
+      <Button
+        type="button"
+        variant="secondary"
+        size="sm"
+        onClick={reset}
+        disabled={!hasActiveFilters}
+      >
         Reset
       </Button>
     </section>

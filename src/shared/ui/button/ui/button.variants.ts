@@ -38,9 +38,9 @@ export const buttonVariants = cva(
 
         danger: [
           'border border-border',
-          'bg-danger text-danger-foreground',
-          'hover:bg-danger/90',
-          'active:bg-danger/80',
+          'bg-danger-bg text-danger-foreground',
+          'dark:hover:bg-danger/60 hover:bg-danger-bg/40',
+          'active:bg-danger-bg/80',
           'active:translate-y-px active:shadow-none',
         ],
       },

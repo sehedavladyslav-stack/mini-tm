@@ -15,12 +15,12 @@ function TaskSorting() {
 
   return (
     <>
-      <label className="grid gap-1.5">
-        <span className="text-[0.76rem] font-bold tracking-[0.08em] text-foreground/55 uppercase">
+      <label className="flex flex-1 flex-col gap-1.5">
+        <span className="text-foreground/55 text-xs font-bold tracking-[0.08em] uppercase">
           Sort by
         </span>
         <select
-          className="min-h-10 rounded-xl border border-border bg-background px-3 text-foreground outline-none transition-colors duration-150 focus:border-primary/55"
+          className="border-border bg-background text-foreground focus:border-primary/55 min-h-10 truncate rounded-xl border px-3 transition-colors duration-150 outline-none"
           value={sortBy}
           onChange={event => {
             const value = event.currentTarget.value;
@@ -38,12 +38,12 @@ function TaskSorting() {
         </select>
       </label>
 
-      <label className="grid gap-1.5">
-        <span className="text-[0.76rem] font-bold tracking-[0.08em] text-foreground/55 uppercase">
+      <label className="flex flex-1 flex-col gap-1.5">
+        <span className="text-foreground/55 text-xs font-bold tracking-[0.08em] uppercase">
           Order
         </span>
         <select
-          className="min-h-10 rounded-xl border border-border bg-background px-3 text-foreground outline-none transition-colors duration-150 focus:border-primary/55"
+          className="border-border bg-background text-foreground focus:border-primary/55 min-h-10 truncate rounded-xl border px-3 transition-colors duration-150 outline-none"
           value={order}
           onChange={event => {
             const value = event.currentTarget.value;

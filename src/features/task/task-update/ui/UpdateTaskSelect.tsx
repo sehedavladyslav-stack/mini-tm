@@ -13,8 +13,7 @@ export function UpdateTaskSelect({ id, task }: UpdateTaskProps) {
 
   return (
     <select
-      id="task-status-select"
-      className="min-h-10 rounded-xl border border-zinc-300 bg-white px-3 text-[0.92rem] font-semibold text-zinc-800 outline-none transition-colors duration-180 ease-in-out focus:border-teal-500/75 disabled:cursor-not-allowed disabled:opacity-70"
+      className="bg-surface border-border text-foreground hover:border-primary-active min-h-12 rounded-md border px-3 text-base font-semibold transition-colors duration-180 ease-in-out outline-none disabled:cursor-not-allowed disabled:opacity-70"
       value={task.status}
       disabled={isStatusUpdating}
       onChange={event =>

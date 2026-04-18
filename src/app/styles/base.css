@@ -1,85 +1,3 @@
-/* @theme inline {
-  --color-background: var(--app-background);
-  --color-foreground: var(--app-foreground);
-  --color-surface: var(--app-surface);
-  --color-muted: var(--app-muted);
-  --color-border: var(--app-border);
-
-  --color-primary: var(--app-primary);
-  --color-primary-foreground: var(--app-primary-foreground);
-
-  --color-glass-primary: var(--glass-primary);
-
-  --color-success: var(--status-success);
-  --color-warning: var(--status-warning);
-  --color-danger: var(--status-danger);
-  --color-pending: var(--status-pending);
-
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-
-  --color-shadow: var(--app-shadow);
-}
-
-:root {
-  --app-background: oklch(97.3% 0.004 286.2);
-  --app-foreground: oklch(27% 0.014 281.5);
-
-  --app-surface: oklch(99.1% 0.002 286.1);
-  --app-muted: oklch(94.2% 0.008 286.4);
-  --app-border: oklch(82% 0.012 286.1);
-
-  --app-primary: oklch(62% 0.16 264);
-  --app-primary-foreground: oklch(98% 0.002 286);
-
-  --glass-primary: oklch(62% 0.16 264 / 0.25);
-
-  --status-success: oklch(62% 0.14 145);
-  --status-warning: oklch(70% 0.14 85);
-  --status-danger: oklch(62% 0.18 25);
-  --status-pending: oklch(70% 0.02 286);
-
-  --chart-1: oklch(65% 0.14 260);
-  --chart-2: oklch(65% 0.14 145);
-  --chart-3: oklch(70% 0.14 85);
-  --chart-4: oklch(65% 0.14 25);
-  --chart-5: oklch(65% 0.14 310);
-
-  --app-shadow-color: oklch(82% 0.012 286.1 / 0.45);
-  --app-shadow: 0 0 6px 0 var(--app-shadow-color);
-}
-
-[data-theme='dark'] {
-  --app-background: oklch(18% 0.01 286);
-  --app-foreground: oklch(96% 0.003 286);
-
-  --app-surface: oklch(22% 0.012 286);
-  --app-muted: oklch(28% 0.014 286);
-  --app-border: oklch(38% 0.012 286);
-
-  --app-primary: oklch(68% 0.14 264);
-  --app-primary-foreground: oklch(98% 0.002 286);
-
-  --glass-primary: oklch(68% 0.14 264 / 0.18);
-
-  --status-success: oklch(68% 0.12 145);
-  --status-warning: oklch(72% 0.12 85);
-  --status-danger: oklch(66% 0.16 25);
-  --status-pending: oklch(60% 0.02 286);
-
-  --chart-1: oklch(70% 0.13 260);
-  --chart-2: oklch(70% 0.13 145);
-  --chart-3: oklch(74% 0.13 85);
-  --chart-4: oklch(70% 0.13 25);
-  --chart-5: oklch(70% 0.13 310);
-
-  --app-shadow-color: oklch(0% 0 0 / 0.6);
-  --app-shadow: 0 4px 20px 0 var(--app-shadow-color);
-} */
-
 @theme inline {
   /* Base semantic */
   --color-background: var(--app-background);
@@ -248,7 +166,7 @@
   }
 
   body {
-    @apply bg-background text-foreground min-h-dvh;
+    @apply bg-background text-foreground;
   }
 
   button {
