@@ -19,7 +19,8 @@
     "msw:init": "msw init public --save",
     "msw:worker": "msw init public --save",
     "clean": "rimraf node_modules dist .turbo .cache coverage",
-    "check": "npm run typecheck && npm run lint && npm run test"
+    "check": "npm run typecheck && npm run lint && npm run test",
+    "openapi": "npx openapi-typescript ./openapi/openapi.yaml -o src/shared/api/v1.ts"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
@@ -31,6 +32,7 @@
     "react-router": "^7.13.0",
     "react-router-dom": "^7.13.0",
     "tailwind-merge": "^3.5.0",
+    "zod": "^4.3.6",
     "zustand": "^5.0.11"
   },
   "devDependencies": {
@@ -51,7 +53,8 @@
     "eslint-plugin-react-refresh": "^0.4.26",
     "globals": "^16.5.0",
     "jsdom": "^27.0.1",
-    "msw": "^2.12.9",
+    "msw": "^2.13.4",
+    "openapi-typescript": "^7.13.0",
     "postcss": "^8.5.6",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
@@ -65,5 +68,10 @@
   },
   "overrides": {
     "handlebars": "4.7.9"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }

@@ -1,6 +1,6 @@
-import { taskSource } from '@/shared';
+import { httpTaskSource } from '@/shared/index';
 import type { TaskId } from '@/shared';
 
 export async function deleteTask(taskId: TaskId): Promise<void> {
-  await taskSource.deleteTask(taskId);
+  await httpTaskSource.deleteTask(taskId);
 }

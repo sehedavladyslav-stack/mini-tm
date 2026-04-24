@@ -9,8 +9,8 @@ const SORT_ORDER_VALUES: TaskSortOrder[] = ['asc', 'desc'];
 const STATUS_OPTIONS: Option<TaskStatusFilter>[] = [
   { value: 'all', label: 'All tasks' },
   { value: 'todo', label: 'To do' },
-  { value: 'active', label: 'In progress' },
-  { value: 'completed', label: 'Completed' },
+  { value: 'in_progress', label: 'In progress' },
+  { value: 'done', label: 'Completed' },
   { value: 'canceled', label: 'Canceled' },
 ];
 

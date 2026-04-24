@@ -1,6 +1,6 @@
-import { taskSource } from '@/shared';
 import type { Task } from '../model';
+import { httpTaskSource } from '@shared/index';
 
 export async function createTask(task: Task): Promise<void> {
-  await taskSource.createTask(task);
+  await httpTaskSource.createTask(task);
 }

@@ -19,7 +19,7 @@ describe('TaskQueryControls', () => {
   it('renders active chips and reset clears all query params', async () => {
     useTaskQueryStore.getState().setParams({
       search: 'desk',
-      status: 'active',
+      status: 'in_progress',
       sortBy: 'title',
       order: 'asc',
     });

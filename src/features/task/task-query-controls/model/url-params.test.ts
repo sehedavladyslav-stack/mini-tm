@@ -9,12 +9,12 @@ import {
 describe('parseTaskQueryParams', () => {
   it('reads valid params from the URL', () => {
     const params = parseTaskQueryParams(
-      new URLSearchParams('search=desk&status=active&sortBy=title&order=asc'),
+      new URLSearchParams('search=desk&status=in_progress&sortBy=title&order=asc')
     );
 
     expect(params).toEqual({
       search: 'desk',
-      status: 'active',
+      status: 'in_progress',
       sortBy: 'title',
       order: 'asc',
     });
@@ -22,7 +22,7 @@ describe('parseTaskQueryParams', () => {
 
   it('falls back to initial values for invalid params', () => {
     const params = parseTaskQueryParams(
-      new URLSearchParams('search=desk&status=invalid&sortBy=unknown&order=up'),
+      new URLSearchParams('search=desk&status=invalid&sortBy=unknown&order=up')
     );
 
     expect(params).toEqual({
@@ -47,12 +47,12 @@ describe('createTaskQuerySearchParams', () => {
   it('keeps non-default filters in the URL', () => {
     const params = createTaskQuerySearchParams({
       search: 'desk',
-      status: 'active',
+      status: 'in_progress',
       sortBy: 'title',
       order: 'asc',
     });
 
-    expect(params.toString()).toBe('search=desk&status=active&sortBy=title&order=asc');
+    expect(params.toString()).toBe('search=desk&status=in_progress&sortBy=title&order=asc');
   });
 });
 
@@ -62,34 +62,34 @@ describe('isSameTaskQueryParams', () => {
       isSameTaskQueryParams(
         {
           search: 'desk',
-          status: 'active',
+          status: 'in_progress',
           sortBy: 'title',
           order: 'asc',
         },
         {
           search: 'desk',
-          status: 'active',
+          status: 'in_progress',
           sortBy: 'title',
           order: 'asc',
-        },
-      ),
+        }
+      )
     ).toBe(true);
 
     expect(
       isSameTaskQueryParams(
         {
           search: 'desk',
-          status: 'active',
+          status: 'in_progress',
           sortBy: 'title',
           order: 'asc',
         },
         {
           search: 'docs',
-          status: 'active',
+          status: 'in_progress',
           sortBy: 'title',
           order: 'asc',
-        },
-      ),
+        }
+      )
     ).toBe(false);
   });
 });

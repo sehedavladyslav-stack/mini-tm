@@ -34,7 +34,7 @@ export function filterTasks(tasks: TaskUI[], params: TaskQueryParams): TaskUI[] 
 
     const matchesSearch =
       task.title.toLowerCase().includes(normalizedSearch) ||
-      task.description.toLowerCase().includes(normalizedSearch);
+      task.description?.toLowerCase().includes(normalizedSearch);
 
     return matchesStatus && matchesSearch;
   });

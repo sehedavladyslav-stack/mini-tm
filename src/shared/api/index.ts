@@ -1,2 +1,2 @@
-export { taskSource } from './task-source';
-export type { ApiTask, ApiTaskStatus, TaskSource } from './task-source';
+export type { CreateTaskRequest, TaskApi, TaskStatus, UpdateTaskRequest } from './task';
+export { httpTaskSource } from './task';

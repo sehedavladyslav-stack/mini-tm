@@ -42,7 +42,7 @@ describe('CreateTaskModal', () => {
         ...INITIAL_FORM,
         title: '  New task  ',
         description: '  Ship release  ',
-        status: 'active',
+        status: 'todo',
         dueDate: '2026-03-23T10:00:00.000Z' as typeof INITIAL_FORM.dueDate,
       },
     });

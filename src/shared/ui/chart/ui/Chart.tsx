@@ -1,6 +1,6 @@
-import { Button, Loader } from '@shared/index';
+import { Loader } from '@shared/index';
 
-type StatusKey = 'todo' | 'active' | 'completed' | 'canceled';
+type StatusKey = 'todo' | 'in_progress' | 'done' | 'canceled';
 
 const STATUS_META: Record<
   StatusKey,
@@ -17,13 +17,13 @@ const STATUS_META: Record<
     badgeClassName: 'bg-muted text-foreground',
     textClassName: 'text-foreground',
   },
-  active: {
+  in_progress: {
     label: 'In progress',
     barClassName: 'bg-primary/75',
     badgeClassName: 'bg-primary/34 text-primary-foreground',
     textClassName: 'text-foreground',
   },
-  completed: {
+  done: {
     label: 'Done',
     barClassName: 'bg-chart-2',
     badgeClassName: 'bg-primary/48 text-primary-foreground',
@@ -58,15 +58,15 @@ export function Chart({ tasksQuery }: PropsChart) {
 
   const totals = {
     todo: tasks.filter(task => task.status === 'todo').length,
-    active: tasks.filter(task => task.status === 'active').length,
-    completed: tasks.filter(task => task.status === 'completed').length,
+    in_progress: tasks.filter(task => task.status === 'in_progress').length,
+    done: tasks.filter(task => task.status === 'done').length,
     canceled: tasks.filter(task => task.status === 'canceled').length,
   };
 
   const totalTasks = tasks.length;
-  const completionRate = totalTasks > 0 ? Math.round((totals.completed / totalTasks) * 100) : 0;
-  const activeRate = totalTasks > 0 ? Math.round((totals.active / totalTasks) * 100) : 0;
-  const statusOrder: StatusKey[] = ['todo', 'active', 'completed', 'canceled'];
+  const completionRate = totalTasks > 0 ? Math.round((totals.done / totalTasks) * 100) : 0;
+  const activeRate = totalTasks > 0 ? Math.round((totals.in_progress / totalTasks) * 100) : 0;
+  const statusOrder: StatusKey[] = ['todo', 'in_progress', 'done', 'canceled'];
 
   return (
     <section

@@ -1,5 +1,6 @@
 // @vitest-environment jsdom
 
+import { act } from 'react';
 import { MemoryRouter, Route, Routes, useLocation } from 'react-router';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { TaskUI } from '@entities/index';
@@ -35,7 +36,7 @@ const tasks: TaskUI[] = [
     id: '1' as TaskUI['id'],
     title: 'Deploy app',
     description: 'Ship to production',
-    status: 'active',
+    status: 'in_progress',
     dueDate: '24-03-2026 12:00' as TaskUI['dueDate'],
     updatedAt: '23-03-2026 10:00' as TaskUI['updatedAt'],
   },
@@ -82,8 +83,10 @@ describe('TaskList integration', () => {
         </MemoryRouter>
       );
 
-      vi.advanceTimersByTime(500);
-      await flushPromises();
+      await act(async () => {
+        vi.advanceTimersByTime(500);
+        await flushPromises();
+      });
 
       expect(container.textContent).toContain('Task board');
       expect(container.textContent).toContain('Deploy app');

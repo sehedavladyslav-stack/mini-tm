@@ -17,7 +17,7 @@ function CreateTaskModal() {
     const task: Task = {
       id: crypto.randomUUID() as TaskId,
       title: data.title.trim(),
-      description: data.description.trim(),
+      description: data.description?.trim(),
       status: data.status,
       dueDate: data.dueDate,
       createdAt: createTaskData,
@@ -49,12 +49,12 @@ function CreateTaskModal() {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-background/70 p-4 backdrop-blur-sm"
+      className="bg-background/70 fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
       role="presentation"
       onClick={handleClose}
     >
       <div
-        className="w-full max-w-xl rounded-2xl border border-border bg-surface p-5 text-foreground shadow-2xl"
+        className="border-border bg-surface text-foreground w-full max-w-xl rounded-2xl border p-5 shadow-2xl"
         role="dialog"
         aria-modal="true"
         aria-labelledby="task-modal-title"
@@ -65,7 +65,7 @@ function CreateTaskModal() {
             Add Task
           </h3>
           <Button
-            className="rounded-lg border border-border px-3 py-1.5 text-sm text-foreground transition-colors duration-200 hover:bg-muted"
+            className="border-border text-foreground hover:bg-muted rounded-lg border px-3 py-1.5 text-sm transition-colors duration-200"
             type="button"
             variant="ghost"
             onClick={handleClose}
@@ -132,17 +132,17 @@ function CreateTaskModal() {
               />
             </label>
           </div>
-          <div className="mt-2 flex items-center justify-end gap-2 border-t border-border pt-3">
+          <div className="border-border mt-2 flex items-center justify-end gap-2 border-t pt-3">
             <Button
               type="button"
-              className="rounded-xl border border-border px-3 py-2 text-sm font-medium text-foreground transition-colors duration-200 hover:bg-muted"
+              className="border-border text-foreground hover:bg-muted rounded-xl border px-3 py-2 text-sm font-medium transition-colors duration-200"
               variant="ghost"
               onClick={handleClose}
             >
               Cancel
             </Button>
             <Button
-              className="rounded-xl border border-primary bg-primary px-3 py-2 text-sm font-medium text-primary-foreground shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:brightness-95 hover:shadow-md"
+              className="border-primary bg-primary text-primary-foreground rounded-xl border px-3 py-2 text-sm font-medium shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:brightness-95"
               type="submit"
               variant="ghost"
             >

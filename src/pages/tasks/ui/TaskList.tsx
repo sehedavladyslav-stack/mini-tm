@@ -29,9 +29,9 @@ function TaskList() {
     throw new Error('Bad request!');
   }
 
-  const activeTasks = tasks.filter(task => task.status === 'active').length;
+  const activeTasks = tasks.filter(task => task.status === 'in_progress').length;
   const todoTasks = tasks.filter(task => task.status === 'todo').length;
-  const completedTasks = tasks.filter(task => task.status === 'completed').length;
+  const completedTasks = tasks.filter(task => task.status === 'done').length;
   const visibleTasks = getVisibleTasks(tasks, params);
 
   return (

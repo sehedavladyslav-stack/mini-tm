@@ -1,4 +1,4 @@
-const TASK_STATUSES = ['todo', 'active', 'completed', 'canceled'] as const;
+const TASK_STATUSES = ['todo', 'canceled', 'in_progress', 'done'] as const;
 
 type TaskStatus = (typeof TASK_STATUSES)[number];
 

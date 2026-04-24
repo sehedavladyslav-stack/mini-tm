@@ -9,8 +9,8 @@ type TaskProps = {
 
 const taskStatusClassNames: Record<TaskUI['status'], string> = {
   todo: 'border-border bg-muted text-foreground/75',
-  active: 'border-primary/45 bg-primary/65 text-primary-foreground',
-  completed: 'border-primary/35 bg-success text-foreground',
+  in_progress: 'border-primary/45 bg-primary/65 text-primary-foreground',
+  done: 'border-primary/35 bg-success text-foreground',
   canceled: 'border-border bg-foreground/8 text-foreground/70',
 };
 

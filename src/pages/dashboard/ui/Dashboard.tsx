@@ -120,13 +120,13 @@ function Dashboard() {
     return dayBuckets;
   })();
 
-  const totalTasks = filteredTasks.length;
-  const completedTasks = filteredTasks.filter(task => task.status === 'completed').length;
-  const activeTasks = filteredTasks.filter(task => task.status === 'active').length;
-  const todoTasks = filteredTasks.filter(task => task.status === 'todo').length;
-  const canceledTasks = filteredTasks.filter(task => task.status === 'canceled').length;
-  const completionRate = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
-  const recentTasks = sortedFilteredTasks.slice(0, 5);
+  // const totalTasks = filteredTasks.length;
+  // const completedTasks = filteredTasks.filter(task => task.status === 'done').length;
+  // const activeTasks = filteredTasks.filter(task => task.status === 'in_progress').length;
+  // const todoTasks = filteredTasks.filter(task => task.status === 'todo').length;
+  // const canceledTasks = filteredTasks.filter(task => task.status === 'canceled').length;
+  // const completionRate = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+  // const recentTasks = sortedFilteredTasks.slice(0, 5);
   const chartMax = Math.max(...chartPoints.map(point => point.value), 1);
   const periodLabel = PERIOD_OPTIONS.find(item => item.value === period)?.label ?? '7 days';
 

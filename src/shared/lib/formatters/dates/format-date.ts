@@ -10,7 +10,7 @@ export function createISODateString(value: string | number | Date): ISODateStrin
   return date.toISOString() as ISODateString;
 }
 
-export function formatDate(value: ISODateString | number | Date): FormattedDateString {
+export function formatDate(value: ISODateString | number | string | Date): FormattedDateString {
   const date = value instanceof Date ? value : new Date(value);
 
   const day = date.getDate();
