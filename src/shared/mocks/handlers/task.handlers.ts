@@ -7,12 +7,13 @@ export const taskHandlers = [
     return HttpResponse.json(tasks);
   }),
 
-  http.get('api/tasks/:taskId', ({ params }) => {
+  http.get('/api/tasks/:taskId', ({ params }) => {
+    console.log(params, tasks);
     const task = tasks.find(t => t.id === params.taskId);
     return HttpResponse.json(task);
   }),
 
-  http.post('api/tasks', async ({ request }) => {
+  http.post('/api/tasks', async ({ request }) => {
     const body = (await request.json()) as CreateTaskRequest;
 
     const newTask = {

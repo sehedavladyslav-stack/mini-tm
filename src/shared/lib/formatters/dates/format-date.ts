@@ -11,6 +11,10 @@ export function createISODateString(value: string | number | Date): ISODateStrin
 }
 
 export function formatDate(value: ISODateString | number | string | Date): FormattedDateString {
+  if (typeof value === 'string' && /^\d+$/.test(value)) {
+    value = Number(value);
+  }
+
   const date = value instanceof Date ? value : new Date(value);
 
   const day = date.getDate();

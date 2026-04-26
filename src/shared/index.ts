@@ -5,5 +5,4 @@ export { API_BASE_URL, TASK_SOURCE_MODE } from './config';
 export type { TaskApi, CreateTaskRequest, TaskStatus, UpdateTaskRequest } from './api';
 export type { TaskSourceMode } from './config';
 export type { ISODateString, FormattedDateString, TaskId, Brand } from './types';
-export { flushPromises, render, setInputValue, setSelectValue, submit, click } from './test/index';
 export { httpTaskSource } from './api';

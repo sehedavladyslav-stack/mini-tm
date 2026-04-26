@@ -2,14 +2,18 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './src/app/App';
-import { worker } from '@shared/mocks/browser';
 
-if (import.meta.env.DEV) {
-  worker.start();
+async function enableMocking() {
+  if (!import.meta.env.DEV) return;
+
+  const { worker } = await import('./src/shared/mocks/browser');
+
+  return worker.start();
 }
-
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-);
+enableMocking().then(() => {
+  createRoot(document.getElementById('root')!).render(
+    <StrictMode>
+      <App />
+    </StrictMode>
+  );
+});

@@ -1,14 +1,14 @@
 import { formatDate, type TaskApi, type TaskId } from '@/shared';
 import type { TaskUI } from '../model';
 
-export function fromTaskToUI(data: Omit<TaskApi, 'createdAt'>): TaskUI {
-  const dueDate = formatDate(data.dueDate as string);
-  const updateDate = formatDate(data.updatedAt);
+export function fromTaskToUI(date: Omit<TaskApi, 'createdAt'>): TaskUI {
+  const dueDate = formatDate(date.dueDate as string);
+  const updateDate = formatDate(date.updatedAt);
 
   const uiTask = {
-    ...data,
-    id: data.id as TaskId,
-    description: data.description || '',
+    ...date,
+    id: date.id as TaskId,
+    description: date.description || '',
     dueDate: dueDate,
     updatedAt: updateDate,
   };
